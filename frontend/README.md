@@ -79,6 +79,25 @@ recortan Discord, Slack o Twitter.
 Al vivir en `public/`, los PNG se publican con la web
 (`https://reckernode.dev/icon-512.png`).
 
+## Añadir una canción al reproductor
+
+1. Copia el `.mp3` dentro de `public/` (puedes agrupar en `public/musica/`).
+2. Añade una entrada en **`src/data/music.ts`** con la ruta empezando por `/`.
+
+```ts
+{ title: 'Dydy with fear', file: '/Dydy with fear.mp3' }
+```
+
+El nombre se escribe tal cual, con espacios y acentos si los tiene: el reproductor
+codifica la URL. La duración se lee del propio archivo, no se pone a mano. El orden
+de la lista es el orden de reproducción, y al acabar la última vuelve a la primera.
+
+El reproductor **nunca arranca solo**. Va flotando en el lado derecho (en móvil, en
+una barra inferior) y se aparta al llegar a la sección de música, donde ya está
+incrustado. La canción no se corta en el relevo porque el elemento `<audio>` vive en
+`MusicProvider`, en la raíz de la aplicación, y lo que se monta y desmonta es solo
+la interfaz.
+
 ## El arcade
 
 Tres minijuegos, todos en el navegador y sin backend:

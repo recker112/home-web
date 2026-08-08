@@ -159,7 +159,7 @@ export const projects: Project[] = [
   {
     title: 'home-web',
     blurb:
-      'Este mismo sitio: hub y portfolio en React + Vite, pixel art hecho a mano y un arcade jugable dentro.',
+      'Este mismo sitio: hub y portfolio en React + Vite, con un arcade jugable dentro.',
     tags: ['React', 'Vite', 'TypeScript'],
     areas: ['Frontend', 'Extras'],
     repo: 'https://github.com/recker112/home-web',
@@ -175,11 +175,6 @@ export const interests = [
     icon: 'crosshair' as IconName,
     title: 'Counter-Strike',
     text: 'Horas de práctica de puntería y utility. Si abres el arcade, verás a qué me refiero.',
-  },
-  {
-    icon: 'music' as IconName,
-    title: 'Música',
-    text: 'De chiptunes a rock. Tengo mi propio servidor solo para no depender de nadie.',
   },
   {
     icon: 'palette' as IconName,
@@ -203,6 +198,7 @@ export const navItems = [
   { id: 'skills', label: 'SKILLS' },
   { id: 'proyectos', label: 'PROYECTOS' },
   { id: 'arcade', label: 'ARCADE' },
+  { id: 'musica', label: 'MÚSICA' },
   { id: 'sobre-mi', label: 'SOBRE MÍ' },
   { id: 'contacto', label: 'CONTACTO' },
 ]

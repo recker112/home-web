@@ -10,7 +10,7 @@ export function About() {
   return (
     <section id="sobre-mi" className="section">
       <div className="wrap">
-        <SectionHead index="05" title="SOBRE MÍ" />
+        <SectionHead index="06" title="SOBRE MÍ" />
 
         <div ref={ref} className={`about reveal${inView ? ' is-visible' : ''}`}>
           <div className="about__bio panel">

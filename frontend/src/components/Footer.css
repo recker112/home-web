@@ -82,3 +82,11 @@
 .footer__credit {
   color: var(--text-faint);
 }
+
+/* En móvil el mando de música es una barra fija abajo: sin este hueco
+   taparía los créditos. */
+@media (max-width: 620px) {
+  .footer {
+    padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px));
+  }
+}

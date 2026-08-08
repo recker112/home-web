@@ -1,0 +1,237 @@
+.player {
+  overflow: hidden;
+}
+
+/* ── Barra superior ────────────────────────────────────────── */
+
+.player__bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  background: var(--surface-2);
+  border-bottom: 3px solid var(--border);
+}
+
+.player__led {
+  width: 10px;
+  height: 10px;
+  background: var(--text-faint);
+}
+
+.player__led.is-on {
+  background: var(--green);
+  animation: pulse-dot 1.4s steps(2, end) infinite;
+}
+
+.player__bar-title {
+  font-family: var(--font-pixel);
+  font-size: 0.45rem;
+  color: var(--text-faint);
+}
+
+.player__bar-count {
+  margin-left: auto;
+  font-family: var(--font-pixel);
+  font-size: 0.45rem;
+  color: var(--gold);
+}
+
+/* ── Disco e información ───────────────────────────────────── */
+
+.player__body {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 20px;
+}
+
+.player__disc {
+  flex-shrink: 0;
+  filter: drop-shadow(3px 3px 0 var(--shadow));
+}
+
+.player__info {
+  min-width: 0;
+}
+
+.player__now {
+  font-family: var(--font-pixel);
+  font-size: 0.42rem;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
+
+.player__title {
+  font-size: clamp(0.62rem, 2.4vw, 0.8rem);
+  color: var(--blue-bright);
+  word-break: break-word;
+  margin-bottom: 8px;
+}
+
+.player__note,
+.player__year {
+  font-size: 1.05rem;
+  color: var(--text-dim);
+}
+
+/* ── Progreso ──────────────────────────────────────────────── */
+
+.player__progress {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 20px 14px;
+}
+
+.player__time {
+  font-family: var(--font-pixel);
+  font-size: 0.45rem;
+  color: var(--text-faint);
+  /* Ancho fijo: si no, la barra se mueve al pasar de 0:09 a 0:10 */
+  min-width: 42px;
+}
+
+.player__progress .player__time:last-of-type {
+  text-align: right;
+}
+
+.player__seek {
+  flex: 1;
+  height: 14px;
+  appearance: none;
+  background: var(--bg);
+  border: 2px solid var(--border);
+  cursor: pointer;
+}
+
+.player__seek::-webkit-slider-thumb {
+  appearance: none;
+  width: 12px;
+  height: 16px;
+  background: var(--blue-bright);
+  border: 2px solid var(--blue-deep);
+}
+
+.player__seek::-moz-range-thumb {
+  width: 12px;
+  height: 16px;
+  border-radius: 0;
+  background: var(--blue-bright);
+  border: 2px solid var(--blue-deep);
+}
+
+.player__seek:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+/* ── Controles ─────────────────────────────────────────────── */
+
+.player__controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 20px 20px;
+}
+
+.player__btn {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  color: var(--text);
+  background: var(--surface-2);
+  border: 3px solid var(--border);
+  box-shadow: 3px 3px 0 var(--shadow);
+  transition:
+    transform 0.06s steps(2, end),
+    box-shadow 0.06s steps(2, end),
+    color 0.12s var(--ease-step);
+}
+
+.player__btn:hover:not(:disabled) {
+  color: var(--gold);
+  border-color: var(--border-strong);
+}
+
+.player__btn:active:not(:disabled) {
+  transform: translate(3px, 3px);
+  box-shadow: 0 0 0 var(--shadow);
+}
+
+.player__btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.player__btn--main {
+  width: 54px;
+  height: 54px;
+  color: var(--on-accent);
+  background: var(--blue);
+  border-color: var(--blue-deep);
+}
+
+.player__btn--main:hover:not(:disabled) {
+  color: var(--on-accent);
+  background: var(--blue-bright);
+}
+
+.player__volume {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  min-width: 0;
+  margin-left: auto;
+  color: var(--text-faint);
+}
+
+.player__volume input {
+  flex: 1;
+  min-width: 50px;
+  height: 12px;
+  appearance: none;
+  background: var(--bg);
+  border: 2px solid var(--border);
+  cursor: pointer;
+}
+
+.player__volume input::-webkit-slider-thumb {
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  background: var(--gold);
+  border: 2px solid var(--shadow);
+}
+
+.player__volume input::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  border-radius: 0;
+  background: var(--gold);
+  border: 2px solid var(--shadow);
+}
+
+.player__error {
+  padding: 0 20px 18px;
+  font-size: 1.02rem;
+  color: var(--red);
+}
+
+@media (max-width: 420px) {
+  .player__body {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .player__controls {
+    flex-wrap: wrap;
+  }
+
+  .player__volume {
+    flex-basis: 100%;
+    margin-left: 0;
+  }
+}

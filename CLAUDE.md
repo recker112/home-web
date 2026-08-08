@@ -109,6 +109,27 @@ crea el `AudioContext` de forma perezosa y lo reanuda (Safari e iOS arrancan
 suspendidos). Los SFX de interfaz **salen silenciados** y el usuario los activa
 en la barra superior; el secuenciador suena igual, porque sonar es su función.
 
+### El reproductor de música
+
+`music/context.ts` + `music/MusicProvider.tsx`, y la interfaz en
+`components/MusicPlayer.tsx` (incrustado en la sección) y
+`components/MusicDock.tsx` (flotante). Las canciones son MP3 de `public/`
+declarados en `src/data/music.ts`.
+
+- El elemento `<audio>` vive en el proveedor, que envuelve toda la
+  aplicación. Es lo que permite que el mando pase de flotar a incrustarse
+  sin cortar la canción: se monta y desmonta la interfaz, nunca el audio.
+- **Van dos contextos a propósito.** `MusicContext` cambia poco;
+  `MusicTimeContext` lleva solo el tiempo, que avanza unas cuatro veces por
+  segundo. Si viajaran juntos, cada tic arrastraría al secuenciador y a
+  todo lo que escuche al reproductor. Solo las barras de progreso usan
+  `useMusicTime`.
+- El mando flotante se aparta con un `IntersectionObserver` sobre
+  `#musica`. Nunca reproduce solo: además de ser lo buscado, los
+  navegadores lo bloquean sin un gesto previo.
+- La ruta del MP3 pasa por `encodeURI`: los nombres de archivo llevan
+  espacios.
+
 ### El secuenciador es la parte delicada
 
 `components/arcade/Sequencer.tsx` y `arcade/notes.ts`:

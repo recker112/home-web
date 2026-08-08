@@ -1,0 +1,18 @@
+.vinyl {
+  /* El giro es lo único de la web que no usa steps(): un disco a saltos
+     parecería un fallo, no una decisión de estilo. */
+  transform-origin: 50% 50%;
+}
+
+.vinyl.is-spinning {
+  animation: vinyl-spin 3s linear infinite;
+}
+
+@keyframes vinyl-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Con "reducir movimiento" la regla global de base.css deja la animación
+   en 0.001ms: el disco se queda quieto y el resto sigue funcionando. */

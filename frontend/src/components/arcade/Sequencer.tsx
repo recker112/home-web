@@ -2,6 +2,7 @@ import { memo, useCallback, useEffect, useRef, useState, type CSSProperties } fr
 import { tracks, type Track } from '../../data/tracks'
 import { useLocalStorage } from '../../hooks/useLocalStorage'
 import { useSound } from '../../audio/context'
+import { useMusic } from '../../music/context'
 import { ROWS, normalizeRowId, type Row } from './notes'
 import { PixelIcon } from '../PixelIcon'
 import './Sequencer.css'
@@ -99,6 +100,7 @@ export function Sequencer() {
   const [uiStep, setUiStep] = useState(-1)
 
   const { ensureContext } = useSound()
+  const music = useMusic()
 
   /* El planificador de audio lee estos refs, así nunca hay que
      reiniciarlo porque hayas movido el tempo o pintado una nota. */
@@ -313,7 +315,12 @@ export function Sequencer() {
       <div className="seq__controls">
         <button
           className={`btn btn--sm ${playing ? '' : 'btn--primary'}`}
-          onClick={() => setPlaying((p) => !p)}
+          onClick={() => {
+            /* Dos músicas a la vez no se llevan bien: al arrancar el
+               secuenciador se pausa la canción que estuviera sonando. */
+            if (!playing) music.pause()
+            setPlaying((p) => !p)
+          }}
         >
           <PixelIcon name={playing ? 'stop' : 'play'} size={16} />
           {playing ? 'PARAR' : 'TOCAR'}
@@ -395,10 +402,6 @@ export function Sequencer() {
         </div>
       </div>
 
-      <p className="seq__hint">
-        Tres octavas cromáticas (C3–B5) con todos los semitonos, más batería. Añade tus canciones en{' '}
-        <code>src/data/tracks.ts</code>. Suena aunque tengas los efectos de la web silenciados.
-      </p>
     </div>
   )
 }

@@ -1,0 +1,133 @@
+.dock {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 45;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: min(300px, calc(100vw - 36px));
+  padding: 10px;
+  background: var(--surface);
+  border: var(--px) solid var(--border);
+  box-shadow: var(--px) var(--px) 0 var(--shadow);
+  transition:
+    transform 0.28s var(--ease-step),
+    opacity 0.28s var(--ease-step),
+    visibility 0.28s;
+}
+
+/* Al llegar a la sección de música, el mando se aparta: allí el
+   reproductor ya está incrustado. */
+.dock.is-docked {
+  transform: translateX(calc(100% + 24px));
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.dock__disc {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  transition: transform 0.1s steps(2, end);
+}
+
+.dock__disc:hover {
+  transform: scale(1.06);
+}
+
+.dock__info {
+  flex: 1;
+  min-width: 0;
+}
+
+.dock__label {
+  display: block;
+  font-family: var(--font-pixel);
+  font-size: 0.38rem;
+  color: var(--gold);
+  margin-bottom: 5px;
+}
+
+.dock__title {
+  display: block;
+  font-size: 1.05rem;
+  color: var(--text);
+  /* Los títulos largos se recortan en vez de romper la caja */
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  margin-bottom: 6px;
+}
+
+.dock__progress {
+  height: 6px;
+  background: var(--bg);
+  border: 2px solid var(--border);
+}
+
+.dock__progress-fill {
+  display: block;
+  height: 100%;
+  background: var(--blue);
+}
+
+.dock__controls {
+  display: flex;
+  gap: 6px;
+}
+
+.dock__btn {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  color: var(--text-dim);
+  background: var(--surface-2);
+  border: 2px solid var(--border);
+  transition:
+    color 0.12s var(--ease-step),
+    background-color 0.12s var(--ease-step);
+}
+
+.dock__btn:hover {
+  color: var(--gold);
+}
+
+.dock__btn--main {
+  color: var(--on-accent);
+  background: var(--blue);
+  border-color: var(--blue-deep);
+}
+
+.dock__btn--main:hover {
+  color: var(--on-accent);
+  background: var(--blue-bright);
+}
+
+/* ── Móvil: barra inferior a lo ancho ──────────────────────── */
+
+@media (max-width: 620px) {
+  .dock {
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    gap: 10px;
+    border-width: 0;
+    border-top: 3px solid var(--border);
+    box-shadow: 0 -3px 0 var(--shadow);
+    /* Deja libre la franja de gestos de los móviles con notch */
+    padding-bottom: calc(10px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .dock.is-docked {
+    transform: translateY(100%);
+  }
+
+  .dock__label {
+    display: none;
+  }
+}
