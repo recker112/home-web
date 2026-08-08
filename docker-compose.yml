@@ -1,0 +1,27 @@
+# Levanta en local exactamente la misma imagen que se despliega, para
+# comprobarla antes de subirla:
+#
+#   docker compose up --build
+#   → http://localhost:8080
+#
+# Al publicar el puerto sin atarlo a 127.0.0.1, el sitio queda accesible
+# desde cualquier equipo de la red local (http://<ip-de-tu-maquina>:8080),
+# no solo desde esta máquina.
+#
+# En Dokploy este archivo no se usa: allí se despliega con Dockerfile.prod.
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+    image: reckernode-web:local
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1/"]
+      interval: 30s
+      timeout: 3s
+      start_period: 5s
+      retries: 3

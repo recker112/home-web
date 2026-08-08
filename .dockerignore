@@ -1,0 +1,34 @@
+# Cuanto menos viaje al daemon de Docker, más rápido arranca el build.
+
+# Control de versiones
+.git
+.gitignore
+
+# Dependencias: se instalan dentro del contenedor con npm ci
+**/node_modules
+
+# Salidas de build locales: la imagen genera las suyas
+frontend/dist
+frontend/dist-ssr
+frontend/dist-check
+
+# Archivos de Docker (no hacen falta dentro de la imagen)
+Dockerfile*
+docker-compose*.yml
+.dockerignore
+
+# Documentación
+README.md
+CLAUDE.md
+
+# Editores
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Entornos y registros
+.env
+.env.*
+!.env.example
+*.log

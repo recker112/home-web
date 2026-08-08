@@ -1,0 +1,35 @@
+# ── ETAPA 1: build de la SPA ──────────────────────────────────
+# Node 24 alpine: la misma línea que se usa en desarrollo. Hace falta
+# una versión que ejecute TypeScript directamente, porque `npm run build`
+# valida los presets del secuenciador con scripts/check-tracks.ts.
+FROM node:24-alpine AS builder
+
+WORKDIR /app
+
+# Las dependencias van en su propia capa: mientras no cambie el
+# package-lock, los despliegues reaprovechan el npm ci ya cacheado.
+COPY frontend/package.json frontend/package-lock.json ./
+RUN npm ci
+
+COPY frontend/ ./
+
+# check:tracks + tsc -b + vite build. Si un preset está mal escrito o
+# los tipos no cuadran, el despliegue falla aquí y no en producción.
+RUN npm run build
+
+# ── ETAPA 2: servidor estático ────────────────────────────────
+# nginx alpine: ~50 MB frente a los ~1,1 GB de la etapa de build, que
+# se queda atrás por completo. No viaja ni node_modules ni el código
+# fuente, solo los archivos ya compilados.
+FROM nginx:alpine AS production
+
+COPY --from=builder /app/dist /usr/share/nginx/html
+COPY docker/nginx.conf /etc/nginx/nginx.conf
+
+EXPOSE 80
+
+# wget viene en busybox, no hace falta instalar nada
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+  CMD wget -qO- http://127.0.0.1/ > /dev/null 2>&1 || exit 1
+
+CMD ["nginx", "-g", "daemon off;"]
