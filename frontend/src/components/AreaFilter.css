@@ -1,0 +1,112 @@
+.areafilter {
+  margin-bottom: 26px;
+  padding: 14px;
+  background: color-mix(in srgb, var(--surface) 60%, transparent);
+  border: 3px solid var(--border);
+}
+
+.areafilter__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.areafilter__title {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-family: var(--font-pixel);
+  font-size: 0.5rem;
+  color: var(--gold);
+}
+
+.areafilter__scope {
+  font-size: 1rem;
+  color: var(--text-faint);
+}
+
+.areafilter__scope strong {
+  color: var(--text-dim);
+  font-weight: 400;
+}
+
+/* ── Botones ───────────────────────────────────────────────── */
+
+.areafilter__row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.areafilter__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  background: var(--surface);
+  border: 3px solid var(--border);
+  box-shadow: 3px 3px 0 var(--shadow);
+  transition:
+    transform 0.06s steps(2, end),
+    box-shadow 0.06s steps(2, end),
+    color 0.12s var(--ease-step),
+    background-color 0.12s var(--ease-step);
+}
+
+.areafilter__btn-label {
+  font-family: var(--font-pixel);
+  font-size: 0.52rem;
+  color: var(--text-dim);
+}
+
+/* Recuento skills/proyectos: adelanta lo que va a pasar al pulsar */
+.areafilter__btn-count {
+  font-family: var(--font-pixel);
+  font-size: 0.42rem;
+  color: var(--text-faint);
+  padding: 3px 5px 2px;
+  background: var(--bg);
+  border: 2px solid var(--border);
+}
+
+.areafilter__btn:hover {
+  border-color: var(--border-strong);
+}
+
+.areafilter__btn:hover .areafilter__btn-label {
+  color: var(--text);
+}
+
+.areafilter__btn:active {
+  transform: translate(3px, 3px);
+  box-shadow: 0 0 0 var(--shadow);
+}
+
+.areafilter__btn.is-active {
+  background: var(--blue);
+  border-color: var(--blue-deep);
+}
+
+.areafilter__btn.is-active .areafilter__btn-label {
+  color: var(--on-accent);
+}
+
+.areafilter__btn.is-active .areafilter__btn-count {
+  color: var(--on-accent);
+  background: var(--blue-deep);
+  border-color: var(--blue-deep);
+}
+
+.areafilter__legend {
+  margin-top: 11px;
+  font-size: 1rem;
+  color: var(--text-faint);
+}
+
+.areafilter__sep {
+  color: var(--text-faint);
+  padding-inline: 3px;
+}

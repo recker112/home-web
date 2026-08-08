@@ -1,21 +1,22 @@
-import { useState } from 'react'
-import { skillCategories, skills, type SkillCategory } from '../data/site'
 import { useInView } from '../hooks/useInView'
+import { useArea } from '../state/areaContext'
+import { projectsIn, skillsIn } from '../state/areaSelectors'
 import { useSound } from '../audio/context'
+import { AreaFilter } from './AreaFilter'
 import { PixelIcon } from './PixelIcon'
 import { SectionHead } from './SectionHead'
 import './Skills.css'
-
-type Filter = SkillCategory | 'Todas'
-
-const FILTERS: Filter[] = ['Todas', ...skillCategories]
 
 /** Barra de experiencia: se rellena la primera vez que entra en pantalla. */
 function SkillBar({ name, level, delay }: { name: string; level: number; delay: number }) {
   const { ref, inView } = useInView<HTMLLIElement>('-40px')
 
   return (
-    <li ref={ref} className={`skill reveal${inView ? ' is-visible' : ''}`} style={{ transitionDelay: `${delay}ms` }}>
+    <li
+      ref={ref}
+      className={`skill reveal${inView ? ' is-visible' : ''}`}
+      style={{ transitionDelay: `${delay}ms` }}
+    >
       <div className="skill__head">
         <span className="skill__name">{name}</span>
         <span className="skill__lv">LV {level}</span>
@@ -39,10 +40,16 @@ function SkillBar({ name, level, delay }: { name: string; level: number; delay: 
 }
 
 export function Skills() {
-  const [filter, setFilter] = useState<Filter>('Todas')
+  const { area } = useArea()
   const sound = useSound()
 
-  const visible = filter === 'Todas' ? skills : skills.filter((s) => s.category === filter)
+  const visible = skillsIn(area)
+  const related = projectsIn(area)
+
+  const goToProjects = () => {
+    sound.play('click')
+    document.getElementById('proyectos')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
 
   return (
     <section id="skills" className="section">
@@ -53,30 +60,30 @@ export function Skills() {
           subtitle="Lo que uso a diario, con el nivel al que realmente lo manejo."
         />
 
-        <div className="skills__filters" role="tablist" aria-label="Filtrar skills">
-          {FILTERS.map((f) => (
-            <button
-              key={f}
-              role="tab"
-              aria-selected={filter === f}
-              className={`skills__filter${filter === f ? ' is-active' : ''}`}
-              onClick={() => {
-                setFilter(f)
-                sound.play('click')
-              }}
-              onPointerEnter={() => sound.play('hover')}
-            >
-              {f === 'Todas' ? <PixelIcon name="cpu" size={12} /> : null}
-              {f.toUpperCase()}
-            </button>
-          ))}
-        </div>
+        <AreaFilter from="skills" />
 
-        <ul className="skills__grid" key={filter}>
+        {/* La key fuerza a repetir la animación de entrada al cambiar de área */}
+        <ul className="skills__grid" key={area}>
           {visible.map((skill, i) => (
             <SkillBar key={skill.name} name={skill.name} level={skill.level} delay={i * 55} />
           ))}
         </ul>
+
+        {/* Cierra el círculo: de las skills del área a los proyectos donde se usan */}
+        <div className="skills__bridge">
+          {related.length > 0 ? (
+            <button className="skills__jump" onClick={goToProjects}>
+              <PixelIcon name="arrow" size={14} />
+              {area === 'Todas'
+                ? `VER LOS ${related.length} PROYECTOS`
+                : `VER LOS ${related.length} PROYECTOS DE ${area.toUpperCase()}`}
+            </button>
+          ) : (
+            <p className="skills__none">
+              Todavía no hay ningún proyecto publicado de {area}.
+            </p>
+          )}
+        </div>
       </div>
     </section>
   )

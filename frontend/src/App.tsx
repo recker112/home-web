@@ -10,6 +10,7 @@ import { Nodes } from './components/Nodes'
 import { Projects } from './components/Projects'
 import { SecretEgg } from './components/SecretEgg'
 import { Skills } from './components/Skills'
+import { AreaProvider } from './state/AreaProvider'
 import { useTheme } from './hooks/useTheme'
 
 export default function App() {
@@ -24,8 +25,11 @@ export default function App() {
       <main>
         <Hero />
         <Nodes />
-        <Skills />
-        <Projects />
+        {/* Skills y Proyectos comparten un único filtro por área */}
+        <AreaProvider>
+          <Skills />
+          <Projects />
+        </AreaProvider>
         <Arcade />
         <About />
       </main>

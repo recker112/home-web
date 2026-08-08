@@ -113,6 +113,12 @@ export type Project = {
   title: string
   blurb: string
   tags: string[]
+  /* Áreas a las que pertenece: son las mismas categorías que las skills.
+     El filtro de la web es único, así que al elegir un área se muestran a
+     la vez las skills de esa área y los proyectos donde las has usado.
+     Un proyecto puede estar en varias; si dejas una categoría sin ningún
+     proyecto, al filtrarla se verá el aviso de "sin proyectos". */
+  areas: SkillCategory[]
   /* Enlaces opcionales: si los dejas vacíos, el botón no aparece. */
   live?: string
   repo?: string
@@ -127,6 +133,7 @@ export const projects: Project[] = [
     blurb:
       'Mi homelab: un VPS con todos mis servicios en contenedores, proxy inverso con TLS automático y backups programados.',
     tags: ['Docker', 'Nginx', 'Linux'],
+    areas: ['DevOps'],
     icon: 'server',
     status: 'live',
   },
@@ -135,6 +142,7 @@ export const projects: Project[] = [
     blurb:
       'Streaming de mi propia colección musical, con transcodificación bajo demanda y acceso desde móvil.',
     tags: ['Self-hosted', 'Docker'],
+    areas: ['DevOps', 'Extras'],
     live: 'https://music.reckernode.dev',
     icon: 'music',
     status: 'live',
@@ -144,6 +152,7 @@ export const projects: Project[] = [
     blurb:
       'Servidor de voz para las partidas: canales por juego, permisos y un bot que avisa cuando alguien entra.',
     tags: ['TS3', 'VPS'],
+    areas: ['DevOps', 'Backend'], // el bot de avisos es lo que aporta el backend
     icon: 'headset',
     status: 'live',
   },
@@ -152,6 +161,7 @@ export const projects: Project[] = [
     blurb:
       'Este mismo sitio: hub y portfolio en React + Vite, pixel art hecho a mano y un arcade jugable dentro.',
     tags: ['React', 'Vite', 'TypeScript'],
+    areas: ['Frontend', 'Extras'],
     repo: 'https://github.com/recker112/home-web',
     icon: 'terminal',
     status: 'wip',

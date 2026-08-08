@@ -131,3 +131,96 @@
 .project__link:hover {
   color: var(--gold);
 }
+
+/* ── Áreas de cada tarjeta ─────────────────────────────────── */
+
+.project__areas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.project__area {
+  padding: 3px 7px 2px;
+  font-family: var(--font-pixel);
+  font-size: 0.4rem;
+  color: var(--text-faint);
+  border: 2px solid var(--border);
+}
+
+/* El área que coincide con el filtro activo se marca en azul */
+.project__area.is-match {
+  color: var(--on-accent);
+  background: var(--blue);
+  border-color: var(--blue-deep);
+}
+
+/* ── Aviso de filtro activo ────────────────────────────────── */
+
+.projects__active {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 16px;
+  margin-bottom: 22px;
+  padding: 12px 14px;
+  background: color-mix(in srgb, var(--blue) 10%, var(--surface));
+  border: 3px solid var(--blue);
+  box-shadow: 3px 3px 0 var(--shadow);
+}
+
+.projects__active-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-pixel);
+  font-size: 0.5rem;
+  color: var(--blue-bright);
+}
+
+.projects__active-detail {
+  font-size: 1.02rem;
+  color: var(--text-dim);
+}
+
+.projects__clear {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-left: auto;
+  padding: 8px 10px;
+  font-family: var(--font-pixel);
+  font-size: 0.42rem;
+  color: var(--text-dim);
+  background: var(--surface);
+  border: 2px solid var(--border);
+  transition: color 0.12s var(--ease-step);
+}
+
+.projects__clear:hover {
+  color: var(--red);
+  border-color: var(--red);
+}
+
+/* ── Sin resultados ────────────────────────────────────────── */
+
+.projects__empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: clamp(28px, 6vw, 48px) 20px;
+  text-align: center;
+  color: var(--text-faint);
+}
+
+.projects__empty-title {
+  font-size: 0.7rem;
+  color: var(--text-dim);
+}
+
+.projects__empty-text {
+  max-width: 46ch;
+  font-size: 1.05rem;
+}

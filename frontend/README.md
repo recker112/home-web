@@ -24,6 +24,28 @@ Para añadir un servicio nuevo basta con un objeto más en `services`. El campo
 responde a una petición HTTP; si lo dejas en `''`, no se hace ninguna comprobación
 (es el caso de TeamSpeak, que no habla HTTP).
 
+### Skills y proyectos van juntos
+
+Las dos secciones comparten **un único filtro por área**. Al elegir "DevOps" se
+muestran a la vez las skills de DevOps y los proyectos donde las has usado, así
+que lo que se ve siempre cuadra.
+
+Eso lo decide el campo `areas` de cada proyecto, que usa las mismas categorías
+que las skills (`skillCategories`):
+
+```ts
+{
+  title: 'reckernode',
+  areas: ['DevOps'],            // un proyecto puede estar en varias
+  ...
+}
+```
+
+Si añades una categoría de skills y ningún proyecto la declara, al filtrarla
+verás un aviso de "sin proyectos" en lugar de una sección vacía. La lógica del
+filtro vive en `src/state/areaSelectors.ts`, en un solo sitio, para que ambas
+secciones no puedan discrepar.
+
 ## Stack
 
 - **React 19 + Vite + TypeScript**, sin librería de componentes. El pixel art se lleva
@@ -36,6 +58,26 @@ responde a una petición HTTP; si lo dejas en `''`, no se hace ninguna comprobac
   es pintar caracteres.
 - **Sin archivos de audio**: los efectos y el secuenciador se generan con Web Audio.
   Los efectos de interfaz salen silenciados y se activan desde la barra superior.
+
+## El icono
+
+`public/favicon.svg` está dibujado a mano, píxel a píxel, igual que los iconos.
+Para donde no se admite SVG (fotos de perfil de GitHub, Discord…) hay un script
+que genera PNG a partir de él, sin dependencias:
+
+```bash
+npm run icon                    # public/icon-512.png
+npm run icon -- 1024            # public/icon-1024.png
+npm run icon -- 512 --circular  # con margen para recortes en círculo
+```
+
+El tamaño se ajusta solo para que cada píxel del dibujo ocupe un número entero
+de píxeles y no salga borroso. La variante `--circular` encoge el dibujo al 75%:
+a tamaño completo, el acento dorado de la esquina se sale del círculo que
+recortan Discord, Slack o Twitter.
+
+Al vivir en `public/`, los PNG se publican con la web
+(`https://reckernode.dev/icon-512.png`).
 
 ## El arcade
 
