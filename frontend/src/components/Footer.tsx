@@ -71,7 +71,7 @@ export function Footer() {
             © {new Date().getFullYear()} {profile.handle} · {profile.domain}
           </p>
           <p className="footer__credit">
-            React + Vite · iconos dibujados píxel a píxel · prueba el código Konami
+            React + Vite · iconos dibujados píxel a píxel · el servidor aguanta cinco disparos
           </p>
         </div>
       </div>

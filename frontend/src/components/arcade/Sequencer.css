@@ -1,32 +1,81 @@
+/* Las medidas reales de --cell y --gap las inyecta el componente, para que
+   el cabezal de reproducción no pueda desalinearse de las celdas. */
+.roll {
+  --label-w: 56px;
+}
+
+/* ── Controles ─────────────────────────────────────────────── */
+
 .seq__controls {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 16px;
+  align-items: stretch;
+  gap: 8px;
+  margin-bottom: 14px;
 }
 
-.seq__tempo {
+.seq__field {
   display: flex;
   align-items: center;
-  gap: 10px;
-  flex: 1 1 190px;
-  padding: 8px 12px;
+  gap: 9px;
+  padding: 7px 11px;
   background: var(--surface-2);
   border: 3px solid var(--border);
 }
 
-.seq__tempo-label {
+.seq__field--grow {
+  flex: 1 1 180px;
+}
+
+.seq__field-label {
   font-family: var(--font-pixel);
   font-size: 0.45rem;
   color: var(--text-faint);
   white-space: nowrap;
 }
 
+.seq__select {
+  font-family: var(--font-pixel);
+  font-size: 0.5rem;
+  color: var(--text);
+  background: var(--bg);
+  border: 2px solid var(--border);
+  padding: 6px 8px;
+  cursor: pointer;
+  max-width: 150px;
+}
+
+.seq__lengths {
+  display: flex;
+  gap: 3px;
+}
+
+.seq__length {
+  padding: 6px 9px;
+  font-family: var(--font-pixel);
+  font-size: 0.45rem;
+  color: var(--text-dim);
+  background: var(--bg);
+  border: 2px solid var(--border);
+  transition:
+    color 0.12s var(--ease-step),
+    background-color 0.12s var(--ease-step);
+}
+
+.seq__length:hover {
+  color: var(--text);
+}
+
+.seq__length.is-active {
+  color: var(--on-accent);
+  background: var(--blue);
+  border-color: var(--blue-deep);
+}
+
 /* Deslizador pixelado: raíl cuadrado y pulgar cuadrado */
-.seq__tempo input[type='range'] {
+.seq__field input[type='range'] {
   flex: 1;
-  min-width: 80px;
+  min-width: 70px;
   height: 12px;
   appearance: none;
   background: var(--bg);
@@ -34,7 +83,7 @@
   cursor: pointer;
 }
 
-.seq__tempo input[type='range']::-webkit-slider-thumb {
+.seq__field input[type='range']::-webkit-slider-thumb {
   appearance: none;
   width: 14px;
   height: 14px;
@@ -42,7 +91,7 @@
   border: 2px solid var(--shadow);
 }
 
-.seq__tempo input[type='range']::-moz-range-thumb {
+.seq__field input[type='range']::-moz-range-thumb {
   width: 14px;
   height: 14px;
   border-radius: 0;
@@ -50,84 +99,131 @@
   border: 2px solid var(--shadow);
 }
 
-/* ── Rejilla ───────────────────────────────────────────────── */
+/* ── Piano roll ────────────────────────────────────────────── */
 
-/* En móvil el patrón se desplaza en horizontal en vez de encogerse
-   hasta dejar celdas imposibles de tocar. */
-.seq__scroll {
-  overflow-x: auto;
-  padding-bottom: 8px;
-}
-
-.seq__grid {
-  min-width: 520px;
-  display: grid;
-  gap: 4px;
-}
-
-.seq__row {
-  display: grid;
-  grid-template-columns: 46px 1fr;
-  align-items: center;
-  gap: 8px;
-}
-
-.seq__row-label {
-  font-family: var(--font-pixel);
-  font-size: 0.42rem;
-  color: var(--text-faint);
-  text-align: right;
-}
-
-.seq__row.is-drum .seq__row-label {
-  color: var(--gold);
-}
-
-.seq__cells {
-  display: grid;
-  grid-template-columns: repeat(16, 1fr);
-  gap: 4px;
-}
-
-.seq__cell {
-  aspect-ratio: 1;
+.roll {
+  max-height: min(58vh, 460px);
+  overflow: auto;
   background: var(--surface);
-  border: 2px solid var(--border);
-  transition:
-    background-color 0.08s var(--ease-step),
-    transform 0.08s steps(2, end);
+  border: 3px solid var(--border);
+  /* El desplazamiento vertical no debe arrastrar la página entera */
+  overscroll-behavior: contain;
 }
 
-/* Marca el primer paso de cada tiempo para no perderse */
-.seq__cell.is-beat {
+.roll__inner {
+  position: relative;
+  width: max-content;
+  min-width: 100%;
+  padding: var(--gap);
+}
+
+/* Banda que marca el paso que suena ahora mismo */
+.roll__playhead {
+  position: absolute;
+  top: var(--gap);
+  bottom: var(--gap);
+  left: calc(var(--label-w) + var(--gap) * 2);
+  z-index: 1;
+  width: var(--cell);
+  background: color-mix(in srgb, var(--cyan) 16%, transparent);
+  border-left: 2px solid var(--cyan);
+  border-right: 2px solid var(--cyan);
+  pointer-events: none;
+}
+
+.roll__row {
+  display: flex;
+  gap: var(--gap);
+  margin-bottom: var(--gap);
+}
+
+/* Teclas negras del piano: fondo más oscuro en toda la fila */
+.roll__row.is-sharp {
+  background: color-mix(in srgb, var(--bg) 55%, transparent);
+}
+
+.roll__row.is-drum {
+  background: color-mix(in srgb, var(--gold) 7%, transparent);
+}
+
+/* Separa la percusión de las notas */
+.roll__row.is-drum:first-of-type {
+  margin-top: 10px;
+  padding-top: 6px;
+  border-top: 3px solid var(--border);
+}
+
+.roll__label {
+  position: sticky;
+  left: 0;
+  z-index: 2;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  width: var(--label-w);
+  height: var(--cell);
+  padding-left: 6px;
+  font-family: var(--font-pixel);
+  font-size: 0.4rem;
+  color: var(--text-faint);
+  /* Opaco: al desplazar en horizontal tapa las celdas que pasan por debajo */
+  background: var(--surface);
+  border-right: 2px solid var(--border);
+}
+
+.roll__row.is-sharp .roll__label {
+  background: var(--bg-grid);
+  color: var(--text-dim);
+}
+
+.roll__row.is-drum .roll__label {
+  color: var(--gold);
   background: var(--surface-2);
 }
 
-.seq__cell:hover {
-  border-color: var(--border-strong);
+.roll__cells {
+  display: flex;
+  gap: var(--gap);
 }
 
-.seq__cell.is-on {
+.roll__cell {
+  flex-shrink: 0;
+  width: var(--cell);
+  height: var(--cell);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  transition: background-color 0.08s var(--ease-step);
+}
+
+/* Marca el primer paso de cada tiempo para no perderse */
+.roll__cell.is-beat {
+  border-left: 2px solid var(--border-strong);
+}
+
+.roll__cell:hover {
+  background: var(--surface-3);
+}
+
+.roll__cell.is-on {
   background: var(--blue);
   border-color: var(--blue-bright);
 }
 
-.seq__row.is-drum .seq__cell.is-on {
+.roll__row.is-sharp .roll__cell.is-on {
+  background: var(--blue-deep);
+}
+
+.roll__row.is-drum .roll__cell.is-on {
   background: var(--gold);
-  border-color: color-mix(in srgb, var(--gold) 60%, #fff);
-}
-
-.seq__cell.is-current {
-  border-color: var(--cyan);
-}
-
-.seq__cell.is-on.is-current {
-  background: var(--cyan);
-  transform: scale(1.14);
+  border-color: color-mix(in srgb, var(--gold) 55%, #fff);
 }
 
 .seq__hint {
   margin-top: 12px;
   font-size: 1rem;
   color: var(--text-faint);
+}
+
+.seq__hint code {
+  color: var(--text-dim);
 }

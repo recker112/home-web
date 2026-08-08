@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "npm run check:tracks && tsc -b && vite build",
+    "check:tracks": "node scripts/check-tracks.ts",
     "lint": "oxlint",
     "preview": "vite preview"
   },

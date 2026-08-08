@@ -2,7 +2,7 @@ import { useRef } from 'react'
 import { profile, projects, services, skills } from '../data/site'
 import { useBootLines, useRotatingText } from '../hooks/useTypewriter'
 import { useSound } from '../audio/context'
-import { Avatar } from './Avatar'
+import { ServerRack } from './ServerRack'
 import { PixelIcon } from './PixelIcon'
 import './Hero.css'
 
@@ -12,7 +12,7 @@ const BOOT = [
   '$ systemctl status --nodes',
   '[ OK ] music.reckernode.dev',
   '[ OK ] ts3.reckernode.dev',
-  '[ OK ] portfolio.service',
+  '[ OK ] reckernode.dev',
   '$ whoami',
 ]
 
@@ -20,7 +20,7 @@ export function Hero() {
   const { rendered, finished } = useBootLines(BOOT)
   const tagline = useRotatingText(profile.taglines)
   const sound = useSound()
-  const taps = useRef(0)
+  const shots = useRef(0)
 
   const stats = [
     { value: String(services.length), label: 'NODOS' },
@@ -33,11 +33,11 @@ export function Hero() {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
 
-  const tapAvatar = () => {
-    sound.play('hover')
-    taps.current += 1
-    if (taps.current >= 5) {
-      taps.current = 0
+  const shootServer = () => {
+    sound.play('hit')
+    shots.current += 1
+    if (shots.current >= 5) {
+      shots.current = 0
       window.dispatchEvent(new Event('rn:secret'))
     }
   }
@@ -96,10 +96,9 @@ export function Hero() {
         </div>
 
         <div className="hero__right">
-          {/* Cinco toques al avatar activan el modo CRT: el código Konami
-              para quien navega sin teclado. */}
-          <button className="hero__avatar" onClick={tapAvatar} aria-label="Avatar de recker">
-            <Avatar size={132} />
+          {/* Cinco disparos al servidor activan el modo CRT. */}
+          <button className="hero__sprite" onClick={shootServer} aria-label="Servidor de reckernode">
+            <ServerRack size={144} />
           </button>
 
           <div className="terminal panel panel--raised">

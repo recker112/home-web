@@ -1,63 +1,38 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useSound } from '../audio/context'
 import { PixelIcon } from './PixelIcon'
 import './SecretEgg.css'
 
-const KONAMI = [
-  'ArrowUp',
-  'ArrowUp',
-  'ArrowDown',
-  'ArrowDown',
-  'ArrowLeft',
-  'ArrowRight',
-  'ArrowLeft',
-  'ArrowRight',
-  'b',
-  'a',
-]
-
 /**
- * Código Konami (o cinco toques al avatar, para quien no tenga teclado).
- * Al activarlo sube el efecto CRT de todo el sitio.
+ * Modo CRT: sube las líneas de barrido y pone la rejilla del fondo en
+ * movimiento. Se activa disparándole cinco veces al servidor del inicio,
+ * que es quien emite el evento `rn:secret`.
  */
 export function SecretEgg() {
   const [on, setOn] = useState(false)
   const [toast, setToast] = useState(false)
+  const timerRef = useRef<ReturnType<typeof setTimeout>>(undefined)
   const sound = useSound()
 
   useEffect(() => {
-    let progress = 0
-
     const unlock = () => {
       setOn((prev) => {
         const next = !prev
         document.documentElement.dataset.crt = next ? 'on' : 'off'
         return next
       })
+
+      /* Si ya había un aviso en pantalla, se reinicia su cuenta atrás. */
+      clearTimeout(timerRef.current)
       setToast(true)
       sound.play('coin')
-      setTimeout(() => setToast(false), 3200)
+      timerRef.current = setTimeout(() => setToast(false), 3200)
     }
 
-    const onKey = (e: KeyboardEvent) => {
-      const expected = KONAMI[progress]
-      if (e.key.toLowerCase() === expected.toLowerCase()) {
-        progress++
-        if (progress === KONAMI.length) {
-          progress = 0
-          unlock()
-        }
-      } else {
-        /* Un fallo reinicia, salvo que la tecla sea el inicio de la secuencia. */
-        progress = e.key === KONAMI[0] ? 1 : 0
-      }
-    }
-
-    window.addEventListener('keydown', onKey)
     window.addEventListener('rn:secret', unlock)
     return () => {
-      window.removeEventListener('keydown', onKey)
       window.removeEventListener('rn:secret', unlock)
+      clearTimeout(timerRef.current)
     }
   }, [sound])
 

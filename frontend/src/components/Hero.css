@@ -168,14 +168,14 @@
   position: relative;
 }
 
-.hero__avatar {
+.hero__sprite {
   display: flex;
   justify-content: center;
   margin-bottom: -14px;
   animation: bob 3.4s steps(8, end) infinite;
 }
 
-.hero__avatar svg {
+.hero__sprite svg {
   filter: drop-shadow(var(--px) var(--px) 0 var(--shadow));
 }
 
@@ -265,7 +265,7 @@
     grid-template-columns: 1.05fr 0.95fr;
   }
 
-  .hero__avatar {
+  .hero__sprite {
     position: absolute;
     top: -84px;
     right: -10px;
