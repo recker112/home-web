@@ -17,7 +17,7 @@ export const profile = {
     'Levanto servidores y los mantengo vivos.',
     'Docker, Linux y despliegues que no dan miedo.',
     'React de día, homelab de noche.',
-    'Counter-Strike, chiptunes y pixel art.',
+    'Arcade y pixel art, porque sí.',
   ],
   bio: [
     'Soy recker. Me dedico a montar, automatizar y mantener infraestructura: contenedores, CI/CD, servidores y todo lo que haga falta para que una app llegue a producción sin sustos.',
