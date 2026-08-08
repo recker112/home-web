@@ -1,0 +1,447 @@
+@import '@fontsource/press-start-2p/400.css';
+@import '@fontsource/vt323/400.css';
+
+/* ══════════════════════════════════════════════════════════════
+   TOKENS
+   Tema oscuro por defecto (azul sobre casi-negro).
+   El claro es azul profundo sobre papel frío, manteniendo los
+   bordes oscuros para que el pixel art no pierda definición.
+   ══════════════════════════════════════════════════════════════ */
+
+:root,
+:root[data-theme='dark'] {
+  --bg: #070b14;
+  --bg-grid: #0d1524;
+  --surface: #101a2e;
+  --surface-2: #16233d;
+  --surface-3: #1d2f4f;
+
+  --border: #2a3d63;
+  --border-strong: #4a6ba8;
+  --shadow: #030509;
+
+  --text: #dbe7ff;
+  --text-dim: #8ba0c9;
+  /* Se usa en etiquetas diminutas: por debajo de este tono no llegaría
+     a 4.5:1 sobre el fondo. */
+  --text-faint: #6b80a8;
+
+  --blue: #3b82f6;
+  --blue-bright: #60a5fa;
+  --blue-deep: #1e40af;
+  --cyan: #22d3ee;
+  --gold: #f59e0b;
+  --green: #22c55e;
+  --red: #ef4444;
+  --magenta: #d946ef;
+
+  --on-accent: #050a14;
+  --scan-opacity: 0.055;
+  --star-alpha: 1;
+}
+
+:root[data-theme='light'] {
+  --bg: #dfe8f8;
+  --bg-grid: #cddbf1;
+  --surface: #ffffff;
+  --surface-2: #eef3fd;
+  --surface-3: #dde7f8;
+
+  --border: #2b3f66;
+  --border-strong: #16233d;
+  --shadow: #91a4c6;
+
+  --text: #0d1730;
+  --text-dim: #46598a;
+  --text-faint: #5a6d96;
+
+  /* En claro, "bright" es el azul con más contraste sobre papel, no el
+     más luminoso: es el que llevan los textos. */
+  --blue: #1d4ed8;
+  --blue-bright: #1e40af;
+  --blue-deep: #172554;
+  --cyan: #0e7490;
+  --gold: #b45309;
+  --green: #15803d;
+  --red: #b91c1c;
+  --magenta: #a21caf;
+
+  --on-accent: #ffffff;
+  --scan-opacity: 0.03;
+  --star-alpha: 0.55;
+}
+
+:root {
+  --font-pixel: 'Press Start 2P', ui-monospace, monospace;
+  --font-body: 'VT323', ui-monospace, 'Courier New', monospace;
+
+  --px: 4px; /* unidad de "píxel" para bordes y sombras */
+  --maxw: 1120px;
+  --nav-h: 60px;
+
+  --ease-step: steps(6, end);
+}
+
+/* ══════════════════════════════════════════════════════════════
+   RESET
+   ══════════════════════════════════════════════════════════════ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  /* Compensa la barra fija al saltar a una sección con # */
+  scroll-padding-top: calc(var(--nav-h) + 16px);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 20px;
+  line-height: 1.45;
+  overflow-x: hidden;
+  -webkit-font-smoothing: none;
+  font-smooth: never;
+  transition:
+    background-color 0.25s var(--ease-step),
+    color 0.25s var(--ease-step);
+}
+
+img,
+svg,
+canvas {
+  display: block;
+  max-width: 100%;
+}
+
+/* El contenido va por encima del fondo animado, que es `fixed` en z-index 0 */
+main,
+footer {
+  position: relative;
+  z-index: 1;
+}
+
+svg {
+  shape-rendering: crispEdges;
+}
+
+button,
+input,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+a {
+  color: var(--blue-bright);
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}
+
+::selection {
+  background: var(--blue);
+  color: var(--on-accent);
+}
+
+:focus-visible {
+  outline: var(--px) solid var(--gold);
+  outline-offset: 2px;
+}
+
+/* Barra de scroll pixelada */
+@supports selector(::-webkit-scrollbar) {
+  ::-webkit-scrollbar {
+    width: 14px;
+    height: 14px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--bg-grid);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--blue);
+    border: 3px solid var(--bg-grid);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--blue-bright);
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   TIPOGRAFÍA
+   ══════════════════════════════════════════════════════════════ */
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-pixel);
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+}
+
+h1 {
+  font-size: clamp(1.5rem, 7vw, 3rem);
+}
+h2 {
+  font-size: clamp(1rem, 4vw, 1.5rem);
+}
+h3 {
+  font-size: clamp(0.75rem, 2.6vw, 0.95rem);
+}
+
+p {
+  color: var(--text-dim);
+}
+
+code {
+  font-family: var(--font-pixel);
+  font-size: 0.62em;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   PIEZAS REUTILIZABLES
+   ══════════════════════════════════════════════════════════════ */
+
+.wrap {
+  width: 100%;
+  max-width: var(--maxw);
+  margin-inline: auto;
+  padding-inline: clamp(16px, 4vw, 32px);
+}
+
+.section {
+  position: relative;
+  padding-block: clamp(56px, 10vw, 104px);
+}
+
+/* Caja pixel: borde duro + sombra sólida desplazada */
+.panel {
+  position: relative;
+  background: var(--surface);
+  border: var(--px) solid var(--border);
+  box-shadow: var(--px) var(--px) 0 var(--shadow);
+}
+
+.panel--raised {
+  box-shadow: calc(var(--px) * 2) calc(var(--px) * 2) 0 var(--shadow);
+}
+
+/* Botón pixel: se "hunde" al pulsar, como una tecla de arcade */
+.btn {
+  --btn-bg: var(--surface-2);
+  --btn-fg: var(--text);
+  --btn-bd: var(--border-strong);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px 18px;
+  font-family: var(--font-pixel);
+  font-size: 0.68rem;
+  line-height: 1;
+  color: var(--btn-fg);
+  background: var(--btn-bg);
+  border: var(--px) solid var(--btn-bd);
+  box-shadow: var(--px) var(--px) 0 var(--shadow);
+  transition:
+    transform 0.06s steps(2, end),
+    box-shadow 0.06s steps(2, end),
+    background-color 0.12s var(--ease-step);
+  touch-action: manipulation;
+}
+
+.btn:hover {
+  --btn-bg: var(--surface-3);
+}
+
+.btn:active {
+  transform: translate(var(--px), var(--px));
+  box-shadow: 0 0 0 var(--shadow);
+}
+
+.btn--primary {
+  --btn-bg: var(--blue);
+  --btn-fg: var(--on-accent);
+  --btn-bd: var(--blue-deep);
+}
+
+.btn--primary:hover {
+  --btn-bg: var(--blue-bright);
+}
+
+.btn--gold {
+  --btn-bg: var(--gold);
+  --btn-fg: var(--on-accent);
+  --btn-bd: color-mix(in srgb, var(--gold) 60%, #000);
+}
+
+.btn--sm {
+  padding: 9px 12px;
+  font-size: 0.58rem;
+}
+
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* Etiqueta pequeña tipo "chip" */
+.tag {
+  display: inline-block;
+  padding: 4px 8px 3px;
+  font-family: var(--font-pixel);
+  font-size: 0.5rem;
+  line-height: 1.4;
+  color: var(--text-dim);
+  background: var(--surface-2);
+  border: 2px solid var(--border);
+}
+
+/* Título de sección con numeración tipo consola */
+.section-intro {
+  margin-bottom: clamp(26px, 5vw, 42px);
+}
+
+.section-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.section-sub {
+  max-width: 62ch;
+  margin-top: 12px;
+  font-size: 1.15rem;
+}
+
+.section-head__idx {
+  font-family: var(--font-pixel);
+  font-size: 0.7rem;
+  color: var(--gold);
+}
+
+.section-head__line {
+  flex: 1 1 60px;
+  height: var(--px);
+  min-width: 40px;
+  background: repeating-linear-gradient(
+    to right,
+    var(--border) 0 8px,
+    transparent 8px 16px
+  );
+}
+
+.text-dim {
+  color: var(--text-dim);
+}
+.text-blue {
+  color: var(--blue-bright);
+}
+.text-gold {
+  color: var(--gold);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   ANIMACIONES DE ENTRADA
+   ══════════════════════════════════════════════════════════════ */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.4s var(--ease-step),
+    transform 0.4s var(--ease-step);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@keyframes blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.25;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   ACCESIBILIDAD: sin movimiento
+   ══════════════════════════════════════════════════════════════ */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}

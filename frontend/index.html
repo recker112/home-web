@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="es" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#070b14" />
+    <title>recker // reckernode.dev</title>
+    <meta
+      name="description"
+      content="Hub y portfolio de recker: servicios de reckernode.dev, skills, proyectos y un arcade en pixel art."
+    />
+    <script>
+      // Aplica el tema antes del primer paint para evitar el flash de color.
+      (function () {
+        try {
+          var saved = localStorage.getItem('rn.theme');
+          var theme =
+            saved === 'light' || saved === 'dark'
+              ? saved
+              : window.matchMedia('(prefers-color-scheme: light)').matches
+                ? 'light'
+                : 'dark';
+          document.documentElement.dataset.theme = theme;
+        } catch (e) {
+          /* localStorage bloqueado: nos quedamos con el tema oscuro del HTML */
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

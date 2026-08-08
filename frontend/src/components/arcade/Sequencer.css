@@ -1,0 +1,133 @@
+.seq__controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.seq__tempo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1 1 190px;
+  padding: 8px 12px;
+  background: var(--surface-2);
+  border: 3px solid var(--border);
+}
+
+.seq__tempo-label {
+  font-family: var(--font-pixel);
+  font-size: 0.45rem;
+  color: var(--text-faint);
+  white-space: nowrap;
+}
+
+/* Deslizador pixelado: raíl cuadrado y pulgar cuadrado */
+.seq__tempo input[type='range'] {
+  flex: 1;
+  min-width: 80px;
+  height: 12px;
+  appearance: none;
+  background: var(--bg);
+  border: 2px solid var(--border);
+  cursor: pointer;
+}
+
+.seq__tempo input[type='range']::-webkit-slider-thumb {
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  background: var(--gold);
+  border: 2px solid var(--shadow);
+}
+
+.seq__tempo input[type='range']::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 0;
+  background: var(--gold);
+  border: 2px solid var(--shadow);
+}
+
+/* ── Rejilla ───────────────────────────────────────────────── */
+
+/* En móvil el patrón se desplaza en horizontal en vez de encogerse
+   hasta dejar celdas imposibles de tocar. */
+.seq__scroll {
+  overflow-x: auto;
+  padding-bottom: 8px;
+}
+
+.seq__grid {
+  min-width: 520px;
+  display: grid;
+  gap: 4px;
+}
+
+.seq__row {
+  display: grid;
+  grid-template-columns: 46px 1fr;
+  align-items: center;
+  gap: 8px;
+}
+
+.seq__row-label {
+  font-family: var(--font-pixel);
+  font-size: 0.42rem;
+  color: var(--text-faint);
+  text-align: right;
+}
+
+.seq__row.is-drum .seq__row-label {
+  color: var(--gold);
+}
+
+.seq__cells {
+  display: grid;
+  grid-template-columns: repeat(16, 1fr);
+  gap: 4px;
+}
+
+.seq__cell {
+  aspect-ratio: 1;
+  background: var(--surface);
+  border: 2px solid var(--border);
+  transition:
+    background-color 0.08s var(--ease-step),
+    transform 0.08s steps(2, end);
+}
+
+/* Marca el primer paso de cada tiempo para no perderse */
+.seq__cell.is-beat {
+  background: var(--surface-2);
+}
+
+.seq__cell:hover {
+  border-color: var(--border-strong);
+}
+
+.seq__cell.is-on {
+  background: var(--blue);
+  border-color: var(--blue-bright);
+}
+
+.seq__row.is-drum .seq__cell.is-on {
+  background: var(--gold);
+  border-color: color-mix(in srgb, var(--gold) 60%, #fff);
+}
+
+.seq__cell.is-current {
+  border-color: var(--cyan);
+}
+
+.seq__cell.is-on.is-current {
+  background: var(--cyan);
+  transform: scale(1.14);
+}
+
+.seq__hint {
+  margin-top: 12px;
+  font-size: 1rem;
+  color: var(--text-faint);
+}

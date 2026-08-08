@@ -1,0 +1,100 @@
+.skills__filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 30px;
+}
+
+.skills__filter {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 13px;
+  font-family: var(--font-pixel);
+  font-size: 0.52rem;
+  color: var(--text-dim);
+  background: var(--surface);
+  border: 3px solid var(--border);
+  box-shadow: 3px 3px 0 var(--shadow);
+  transition:
+    transform 0.06s steps(2, end),
+    box-shadow 0.06s steps(2, end),
+    color 0.12s var(--ease-step),
+    background-color 0.12s var(--ease-step);
+}
+
+.skills__filter:hover {
+  color: var(--text);
+  border-color: var(--border-strong);
+}
+
+.skills__filter:active {
+  transform: translate(3px, 3px);
+  box-shadow: 0 0 0 var(--shadow);
+}
+
+.skills__filter.is-active {
+  color: var(--on-accent);
+  background: var(--blue);
+  border-color: var(--blue-deep);
+}
+
+.skills__grid {
+  display: grid;
+  gap: 20px 30px;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 720px) {
+  .skills__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.skill__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 7px;
+}
+
+.skill__name {
+  font-size: 1.15rem;
+  color: var(--text);
+}
+
+.skill__lv {
+  font-family: var(--font-pixel);
+  font-size: 0.5rem;
+  color: var(--gold);
+}
+
+/* ── Barra de EXP ──────────────────────────────────────────── */
+
+.skill__bar {
+  position: relative;
+  height: 18px;
+  background: var(--surface);
+  border: 3px solid var(--border);
+  overflow: hidden;
+}
+
+.skill__fill {
+  height: 100%;
+  background: linear-gradient(to right, var(--blue-deep), var(--blue), var(--cyan));
+  /* steps() hace que la barra "salte" por bloques, como un juego de 8 bits */
+  transition: width 0.9s steps(20, end);
+}
+
+/* Muescas verticales encima del relleno: convierten la barra en celdas */
+.skill__ticks {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to right,
+    transparent 0 calc(5% - 2px),
+    var(--surface) calc(5% - 2px) 5%
+  );
+  pointer-events: none;
+}

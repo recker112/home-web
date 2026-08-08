@@ -1,0 +1,66 @@
+/* El cursor nativo se mantiene: esto es un adorno que lo acompaña */
+.cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 70;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+.cursor__arm {
+  position: absolute;
+  background: var(--blue-bright);
+  opacity: 0.75;
+  transition:
+    background-color 0.12s var(--ease-step),
+    margin 0.12s steps(3, end);
+}
+
+.cursor__arm--n,
+.cursor__arm--s {
+  width: 3px;
+  height: 8px;
+  left: -1px;
+}
+
+.cursor__arm--n {
+  margin-top: -18px;
+}
+.cursor__arm--s {
+  margin-top: 10px;
+}
+
+.cursor__arm--w,
+.cursor__arm--e {
+  width: 8px;
+  height: 3px;
+  top: -1px;
+}
+
+.cursor__arm--w {
+  margin-left: -18px;
+}
+.cursor__arm--e {
+  margin-left: 10px;
+}
+
+/* Sobre algo pulsable, la mira se abre y cambia a dorado */
+.cursor[data-over='true'] .cursor__arm {
+  background: var(--gold);
+  opacity: 1;
+}
+
+.cursor[data-over='true'] .cursor__arm--n {
+  margin-top: -24px;
+}
+.cursor[data-over='true'] .cursor__arm--s {
+  margin-top: 16px;
+}
+.cursor[data-over='true'] .cursor__arm--w {
+  margin-left: -24px;
+}
+.cursor[data-over='true'] .cursor__arm--e {
+  margin-left: 16px;
+}

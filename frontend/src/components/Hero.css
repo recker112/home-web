@@ -1,0 +1,275 @@
+.hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100svh;
+  padding-top: calc(var(--nav-h) + 32px);
+  padding-bottom: 72px;
+}
+
+.hero__grid {
+  display: grid;
+  gap: clamp(36px, 6vw, 56px);
+  align-items: center;
+}
+
+/* ── Columna de texto ──────────────────────────────────────── */
+
+.hero__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 12px 6px;
+  font-family: var(--font-pixel);
+  font-size: 0.5rem;
+  color: var(--green);
+  background: color-mix(in srgb, var(--green) 12%, var(--surface));
+  border: 2px solid color-mix(in srgb, var(--green) 40%, var(--border));
+  margin-bottom: 22px;
+}
+
+.hero__badge-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--green);
+  animation: pulse-dot 1.6s steps(2, end) infinite;
+}
+
+.hero__title {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.hero__hi {
+  font-size: clamp(0.7rem, 2.6vw, 1rem);
+  color: var(--text-dim);
+}
+
+/* El nombre lleva dos copias desplazadas que "glitchean" al pasar el ratón */
+.hero__name {
+  position: relative;
+  font-size: clamp(2rem, 9vw, 3.6rem);
+  color: var(--blue-bright);
+  text-shadow: var(--px) var(--px) 0 var(--shadow);
+  width: fit-content;
+}
+
+.hero__name::before,
+.hero__name::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.hero__name::before {
+  color: var(--cyan);
+  transform: translate(-3px, 0);
+  clip-path: inset(0 0 55% 0);
+}
+
+.hero__name::after {
+  color: var(--gold);
+  transform: translate(3px, 0);
+  clip-path: inset(55% 0 0 0);
+}
+
+.hero__name:hover::before,
+.hero__name:hover::after {
+  opacity: 1;
+  animation: glitch 0.35s steps(3, end) infinite;
+}
+
+@keyframes glitch {
+  0% {
+    transform: translate(-3px, 0);
+  }
+  50% {
+    transform: translate(3px, 1px);
+  }
+  100% {
+    transform: translate(-2px, -1px);
+  }
+}
+
+.hero__role {
+  font-size: 1.35rem;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+
+.hero__typed {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 2rem;
+  font-size: 1.25rem;
+  color: var(--text-dim);
+  margin-bottom: 28px;
+}
+
+.hero__prompt {
+  color: var(--gold);
+}
+
+.hero__caret {
+  display: inline-block;
+  width: 10px;
+  height: 1.1rem;
+  background: var(--blue-bright);
+  animation: blink 1s steps(1, end) infinite;
+  vertical-align: middle;
+}
+
+.hero__cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-bottom: 34px;
+}
+
+/* ── Contadores ────────────────────────────────────────────── */
+
+.hero__stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.hero__stat {
+  flex: 1 1 90px;
+  padding: 12px 14px;
+  background: var(--surface);
+  border: 3px solid var(--border);
+  box-shadow: 3px 3px 0 var(--shadow);
+}
+
+.hero__stat-value {
+  display: block;
+  font-family: var(--font-pixel);
+  font-size: 1.1rem;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+
+.hero__stat-label {
+  font-family: var(--font-pixel);
+  font-size: 0.45rem;
+  color: var(--text-faint);
+}
+
+/* ── Terminal ──────────────────────────────────────────────── */
+
+.hero__right {
+  position: relative;
+}
+
+.hero__avatar {
+  display: flex;
+  justify-content: center;
+  margin-bottom: -14px;
+  animation: bob 3.4s steps(8, end) infinite;
+}
+
+.hero__avatar svg {
+  filter: drop-shadow(var(--px) var(--px) 0 var(--shadow));
+}
+
+.terminal {
+  overflow: hidden;
+}
+
+.terminal__bar {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 12px;
+  background: var(--surface-2);
+  border-bottom: 3px solid var(--border);
+}
+
+.terminal__dot {
+  width: 10px;
+  height: 10px;
+}
+
+.terminal__title {
+  margin-left: 8px;
+  font-family: var(--font-pixel);
+  font-size: 0.45rem;
+  color: var(--text-faint);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.terminal__body {
+  min-height: 268px;
+  padding: 16px;
+  font-size: 1.15rem;
+  line-height: 1.55;
+}
+
+.terminal__line {
+  color: var(--text-dim);
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.terminal__line.is-cmd {
+  color: var(--text);
+}
+
+.terminal__line.is-ok {
+  color: var(--green);
+}
+
+.terminal__line.is-answer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+  color: var(--blue-bright);
+}
+
+/* ── Indicador de scroll ───────────────────────────────────── */
+
+.hero__scroll {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin: 40px auto 0;
+  font-family: var(--font-pixel);
+  font-size: 0.45rem;
+  color: var(--text-faint);
+  animation: bob 2.2s steps(6, end) infinite;
+}
+
+.hero__scroll:hover {
+  color: var(--gold);
+}
+
+@media (min-width: 760px) {
+  .hero__scroll {
+    display: flex;
+  }
+}
+
+@media (min-width: 960px) {
+  .hero__grid {
+    grid-template-columns: 1.05fr 0.95fr;
+  }
+
+  .hero__avatar {
+    position: absolute;
+    top: -84px;
+    right: -10px;
+    z-index: 2;
+    margin: 0;
+  }
+}

@@ -1,0 +1,86 @@
+.about {
+  display: grid;
+  gap: clamp(20px, 3vw, 28px);
+}
+
+@media (min-width: 900px) {
+  .about {
+    grid-template-columns: 1.15fr 1fr;
+    align-items: start;
+  }
+}
+
+/* ── Bio ───────────────────────────────────────────────────── */
+
+.about__bio-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 14px;
+  font-family: var(--font-pixel);
+  font-size: 0.45rem;
+  color: var(--text-faint);
+  background: var(--surface-2);
+  border-bottom: 3px solid var(--border);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.about__bio-body {
+  display: grid;
+  gap: 14px;
+  padding: 20px;
+}
+
+.about__bio-body p {
+  font-size: 1.15rem;
+}
+
+.about__meta {
+  padding-top: 12px;
+  border-top: 2px solid var(--border);
+}
+
+/* ── Intereses ─────────────────────────────────────────────── */
+
+.about__interests {
+  display: grid;
+  gap: 14px;
+}
+
+.interest {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 16px;
+  transition:
+    transform 0.12s steps(3, end),
+    border-color 0.15s var(--ease-step);
+}
+
+.interest:hover {
+  transform: translateX(4px);
+  border-color: var(--blue);
+}
+
+.interest__icon {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  color: var(--gold);
+  background: var(--surface-2);
+  border: 3px solid var(--border);
+}
+
+.interest__title {
+  font-size: 0.62rem;
+  color: var(--blue-bright);
+  margin-bottom: 8px;
+}
+
+.interest__text {
+  font-size: 1.05rem;
+}

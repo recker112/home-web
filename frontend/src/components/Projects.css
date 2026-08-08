@@ -1,0 +1,133 @@
+.projects__grid {
+  display: grid;
+  gap: clamp(18px, 3vw, 26px);
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
+  .projects__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1000px) {
+  .projects__grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.project {
+  display: flex;
+  flex-direction: column;
+  padding: 18px;
+  transition:
+    transform 0.12s steps(3, end),
+    box-shadow 0.12s steps(3, end),
+    border-color 0.15s var(--ease-step),
+    opacity 0.4s var(--ease-step);
+}
+
+.project:hover {
+  transform: translate(-3px, -3px);
+  border-color: var(--blue);
+  box-shadow: 7px 7px 0 var(--shadow);
+}
+
+.project__top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.project__icon {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  color: var(--blue-bright);
+  background: var(--surface-2);
+  border: 3px solid var(--border);
+  transition:
+    color 0.15s var(--ease-step),
+    transform 0.15s steps(3, end);
+}
+
+.project:hover .project__icon {
+  color: var(--gold);
+  transform: translateY(-3px);
+}
+
+.project__status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 7px 3px;
+  font-family: var(--font-pixel);
+  font-size: 0.4rem;
+  border: 2px solid currentColor;
+  white-space: nowrap;
+}
+
+.project__status-dot {
+  width: 6px;
+  height: 6px;
+  background: currentColor;
+}
+
+.project__status.is-live {
+  color: var(--green);
+}
+
+.project__status.is-live .project__status-dot {
+  animation: pulse-dot 2s steps(2, end) infinite;
+}
+
+.project__status.is-wip {
+  color: var(--gold);
+}
+
+.project__status.is-lab {
+  color: var(--magenta);
+}
+
+.project__title {
+  font-size: 0.72rem;
+  margin-bottom: 10px;
+}
+
+.project__blurb {
+  flex: 1;
+  font-size: 1.05rem;
+  margin-bottom: 14px;
+}
+
+.project__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.project__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 2px solid var(--border);
+}
+
+.project__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--font-pixel);
+  font-size: 0.48rem;
+  color: var(--text-dim);
+  transition: color 0.12s var(--ease-step);
+}
+
+.project__link:hover {
+  color: var(--gold);
+}

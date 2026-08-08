@@ -1,0 +1,122 @@
+.painter {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 780px) {
+  .painter {
+    grid-template-columns: minmax(0, 1fr) 260px;
+    align-items: start;
+  }
+}
+
+/* ── Lienzo ────────────────────────────────────────────────── */
+
+.painter__stage {
+  display: grid;
+  place-items: center;
+}
+
+.painter__grid {
+  display: grid;
+  grid-template-columns: repeat(16, 1fr);
+  width: 100%;
+  max-width: 400px;
+  aspect-ratio: 1;
+  background: var(--surface);
+  border: 3px solid var(--border);
+  cursor: crosshair;
+  /* Impide que arrastrar para pintar mueva la página */
+  touch-action: none;
+  user-select: none;
+}
+
+/* Tablero de ajedrez tenue para distinguir el "vacío" */
+.painter__cell {
+  border-right: 1px solid color-mix(in srgb, var(--border) 35%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--border) 35%, transparent);
+}
+
+.painter__cell:nth-child(16n) {
+  border-right: none;
+}
+
+/* ── Panel lateral ─────────────────────────────────────────── */
+
+.painter__block {
+  margin-bottom: 18px;
+}
+
+.painter__label {
+  font-family: var(--font-pixel);
+  font-size: 0.45rem;
+  color: var(--text-faint);
+  margin-bottom: 10px;
+}
+
+.painter__palette {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 5px;
+}
+
+.painter__swatch {
+  aspect-ratio: 1;
+  border: 3px solid var(--border);
+  transition: transform 0.08s steps(2, end);
+}
+
+.painter__swatch:hover {
+  transform: scale(1.12);
+}
+
+.painter__swatch.is-active {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 2px var(--surface);
+  transform: scale(1.12);
+}
+
+.painter__tools {
+  display: grid;
+  gap: 6px;
+}
+
+.painter__tool {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  font-family: var(--font-pixel);
+  font-size: 0.5rem;
+  color: var(--text-dim);
+  background: var(--surface-2);
+  border: 3px solid var(--border);
+  transition:
+    color 0.12s var(--ease-step),
+    background-color 0.12s var(--ease-step);
+}
+
+.painter__tool:hover {
+  color: var(--text);
+}
+
+.painter__tool.is-active {
+  color: var(--on-accent);
+  background: var(--blue);
+  border-color: var(--blue-deep);
+}
+
+.painter__actions {
+  display: flex;
+  gap: 8px;
+}
+
+.painter__actions .btn {
+  flex: 1;
+}
+
+.painter__hint {
+  font-size: 1rem;
+  color: var(--text-faint);
+}

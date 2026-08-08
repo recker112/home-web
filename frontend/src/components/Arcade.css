@@ -1,0 +1,102 @@
+.arcade {
+  overflow: hidden;
+}
+
+/* ── Frontal de la máquina ─────────────────────────────────── */
+
+.arcade__cabinet-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  background: var(--surface-2);
+  border-bottom: 3px solid var(--border);
+}
+
+.arcade__light {
+  width: 10px;
+  height: 10px;
+  background: var(--blue);
+  animation: pulse-dot 1.4s steps(2, end) infinite;
+}
+
+.arcade__light:nth-child(2) {
+  background: var(--gold);
+  animation-delay: 0.45s;
+}
+
+.arcade__light:nth-child(3) {
+  background: var(--green);
+  animation-delay: 0.9s;
+}
+
+.arcade__marquee {
+  margin-left: 8px;
+  font-family: var(--font-pixel);
+  font-size: 0.5rem;
+  color: var(--blue-bright);
+}
+
+.arcade__coin {
+  margin-left: auto;
+  font-family: var(--font-pixel);
+  font-size: 0.42rem;
+  color: var(--gold);
+  animation: blink 1.6s steps(1, end) infinite;
+}
+
+@media (max-width: 520px) {
+  .arcade__coin {
+    display: none;
+  }
+}
+
+/* ── Pestañas ──────────────────────────────────────────────── */
+
+.arcade__tabs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3px;
+  padding: 3px;
+  background: var(--border);
+}
+
+.arcade__tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 6px;
+  font-family: var(--font-pixel);
+  font-size: 0.5rem;
+  text-align: center;
+  color: var(--text-dim);
+  background: var(--surface);
+  transition:
+    color 0.12s var(--ease-step),
+    background-color 0.12s var(--ease-step);
+}
+
+.arcade__tab:hover {
+  color: var(--text);
+  background: var(--surface-2);
+}
+
+.arcade__tab.is-active {
+  color: var(--on-accent);
+  background: var(--blue);
+}
+
+/* ── Pantalla ──────────────────────────────────────────────── */
+
+.arcade__screen {
+  padding: clamp(16px, 3vw, 26px);
+  background: var(--bg-grid);
+}
+
+.arcade__blurb {
+  margin-bottom: 16px;
+  font-size: 1.1rem;
+  color: var(--text-dim);
+}

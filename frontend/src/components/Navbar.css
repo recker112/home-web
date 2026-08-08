@@ -1,0 +1,182 @@
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  border-bottom: var(--px) solid var(--border);
+  backdrop-filter: blur(6px);
+}
+
+.nav__inner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: var(--nav-h);
+}
+
+/* ── Marca ─────────────────────────────────────────────────── */
+
+.nav__brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-pixel);
+  font-size: 0.72rem;
+  color: var(--text);
+  margin-right: auto;
+}
+
+.nav__logo {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  font-family: var(--font-pixel);
+  font-size: 0.8rem;
+  color: var(--on-accent);
+  background: var(--blue);
+  border: 3px solid var(--blue-deep);
+  box-shadow: 3px 3px 0 var(--shadow);
+  transition: transform 0.1s steps(2, end);
+}
+
+.nav__brand:hover .nav__logo {
+  transform: translate(-1px, -1px);
+  background: var(--blue-bright);
+}
+
+.nav__brand-dim {
+  color: var(--text-faint);
+}
+
+/* ── Enlaces (escritorio) ──────────────────────────────────── */
+
+.nav__links {
+  display: none;
+  gap: 2px;
+}
+
+.nav__link {
+  position: relative;
+  padding: 10px 11px;
+  font-family: var(--font-pixel);
+  font-size: 0.55rem;
+  color: var(--text-dim);
+  transition: color 0.12s var(--ease-step);
+}
+
+.nav__link:hover {
+  color: var(--text);
+}
+
+.nav__link::after {
+  content: '';
+  position: absolute;
+  left: 11px;
+  right: 11px;
+  bottom: 4px;
+  height: 3px;
+  background: var(--blue-bright);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.15s var(--ease-step);
+}
+
+.nav__link:hover::after,
+.nav__link.is-active::after {
+  transform: scaleX(1);
+}
+
+.nav__link.is-active {
+  color: var(--blue-bright);
+}
+
+/* ── Botones de icono ──────────────────────────────────────── */
+
+.nav__tools {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav__icon-btn {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  color: var(--text-dim);
+  background: var(--surface);
+  border: 3px solid var(--border);
+  box-shadow: 3px 3px 0 var(--shadow);
+  transition:
+    transform 0.06s steps(2, end),
+    box-shadow 0.06s steps(2, end),
+    color 0.12s var(--ease-step);
+}
+
+.nav__icon-btn:hover {
+  color: var(--gold);
+  border-color: var(--border-strong);
+}
+
+.nav__icon-btn:active {
+  transform: translate(3px, 3px);
+  box-shadow: 0 0 0 var(--shadow);
+}
+
+.nav__burger {
+  display: grid;
+}
+
+/* ── Menú desplegable (móvil) ──────────────────────────────── */
+
+.nav__drawer {
+  display: grid;
+  overflow: hidden;
+  max-height: 0;
+  background: var(--surface);
+  border-bottom: 0 solid var(--border);
+  transition:
+    max-height 0.25s var(--ease-step),
+    border-width 0.25s var(--ease-step);
+}
+
+.nav__drawer.is-open {
+  max-height: 420px;
+  border-bottom-width: var(--px);
+}
+
+.nav__drawer-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 16px clamp(16px, 4vw, 32px);
+  font-family: var(--font-pixel);
+  font-size: 0.62rem;
+  text-align: left;
+  color: var(--text-dim);
+  border-bottom: 2px solid var(--bg-grid);
+}
+
+.nav__drawer-link.is-active {
+  color: var(--blue-bright);
+  background: var(--surface-2);
+}
+
+.nav__drawer-link:last-child {
+  border-bottom: none;
+}
+
+@media (min-width: 860px) {
+  .nav__links {
+    display: flex;
+  }
+
+  .nav__burger,
+  .nav__drawer {
+    display: none;
+  }
+}
