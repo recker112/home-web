@@ -24,7 +24,7 @@ export const profile = {
     'Fuera del trabajo mi homelab es mi patio de recreo: reckernode.dev hospeda mis propios servicios, desde mi biblioteca de música hasta el TeamSpeak donde juego con mis amigos.',
   ],
   location: 'Venezuela',
-  email: 'devops@oplaics.com',
+  email: 'contacto@reckernode.dev',
   availability: 'Abierto a proyectos y colaboraciones',
 }
 
@@ -182,7 +182,7 @@ export const interests = [
 
 export const socials: { label: string; url: string; icon: IconName }[] = [
   { label: 'GitHub', url: 'https://github.com/recker112', icon: 'code' },
-  { label: 'Email', url: 'mailto:devops@oplaics.com', icon: 'mail' },
+  { label: 'Email', url: 'mailto:contacto@reckernode.dev', icon: 'mail' },
 ]
 
 /* ── Navegación ────────────────────────────────────────────── */
