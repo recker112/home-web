@@ -31,7 +31,7 @@ export const profile = {
      sobre lo que haya aquí. Ver `runtime.ts`. */
   availability: runtimeText(
     'availability',
-    'Ocupado de momento, pero siempre abierto a charlar sobre DevOps, Linux y Self-Hosting.',
+    'Ocupado de momento, pero siempre abierto a charlar sobre DevOps, Linux, React y Self-Hosting.',
   ),
 }
 
