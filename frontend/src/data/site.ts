@@ -106,7 +106,7 @@ export const skills: Skill[] = [
 
   { name: 'React', level: 70, category: 'Frontend' },
   { name: 'TypeScript', level: 40, category: 'Frontend' },
-  { name: 'Vite', level: 86, category: 'Frontend' },
+  { name: 'Vite', level: 70, category: 'Frontend' },
   { name: 'CSS / Responsive', level: 60, category: 'Frontend' },
 
   { name: 'Git', level: 90, category: 'Extras' },
