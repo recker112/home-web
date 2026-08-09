@@ -26,7 +26,7 @@ export function Music() {
         <SectionHead
           index="05"
           title="MÚSICA"
-          subtitle="Lo que compongo cuando no estoy peleándome con un servidor. Dale al play: el mando te sigue por el resto de la página."
+          subtitle="Lo que compongo cuando no estoy peleándome con un servidor o programando. Dale al play: el mando te sigue por el resto de la página."
         />
 
         <div ref={ref} className={`music__grid reveal${inView ? ' is-visible' : ''}`}>
