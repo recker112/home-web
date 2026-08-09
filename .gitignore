@@ -1,0 +1,5 @@
+# Variables de entorno: cada despliegue tiene las suyas y algunas son
+# privadas. El ejemplo sí se versiona, porque documenta cuáles hay.
+.env
+.env.*
+!.env.example

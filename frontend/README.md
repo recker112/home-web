@@ -24,6 +24,22 @@ Para añadir un servicio nuevo basta con un objeto más en `services`. El campo
 responde a una petición HTTP; si lo dejas en `''`, no se hace ninguna comprobación
 (es el caso de TeamSpeak, que no habla HTTP).
 
+### La disponibilidad se cambia sin recompilar
+
+`profile.availability` —el aviso del punto verde— es la excepción: cambia a
+menudo, así que se lee al arrancar en lugar de quedar fijado en el build.
+
+- **En producción**, con la variable de entorno `RN_AVAILABILITY` del contenedor
+  (en Dokploy, las del servicio). Al arrancar, `docker/40-runtime-config.sh`
+  la vuelca en `config.js`, así que **cambiarla y reiniciar basta**: no hay que
+  reconstruir la imagen ni desplegar de nuevo.
+- **En desarrollo**, con `VITE_RN_AVAILABILITY` en un `.env` de esta carpeta.
+- **Si no hay ninguna**, se usa el texto de `site.ts`.
+
+El orden y los detalles están en `src/data/runtime.ts`; `.env.example`, en la
+raíz del repositorio, lista las variables. Para añadir otro texto configurable,
+súmalo a `FROM_ENV` en `runtime.ts` y al script de arranque.
+
 ### Skills y proyectos van juntos
 
 Las dos secciones comparten **un único filtro por área**. Al elegir "DevOps" se

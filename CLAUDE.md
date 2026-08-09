@@ -10,8 +10,9 @@ idioma al añadir código o textos.
 
 ## Dónde se trabaja
 
-Todo el proyecto vive en `frontend/`. `docker/` existe pero está vacío: no hay
-backend, ni base de datos, ni API. Es una SPA estática.
+Todo el código vive en `frontend/`: no hay backend, ni base de datos, ni API. Es
+una SPA estática. En `docker/` solo está lo del despliegue —la configuración de
+nginx y el script de arranque del contenedor—, que se usa desde `Dockerfile.prod`.
 
 ```bash
 cd frontend
@@ -54,6 +55,19 @@ navegación) y `src/data/tracks.ts` (presets del secuenciador) concentran todo e
 texto y los datos. Cambiar contenido no debería obligar a tocar componentes: si
 te ves editando un `.tsx` para cambiar una frase, probablemente falte un campo en
 `site.ts`.
+
+`profile.availability` es la excepción: cambia demasiado a menudo como para
+recompilar cada vez, así que se resuelve al cargar la página con
+`runtimeText()` de `data/runtime.ts`. Manda `window.__RN_CONFIG__` —que el
+contenedor reescribe en `config.js` al arrancar, a partir de `RN_AVAILABILITY`
+(`docker/40-runtime-config.sh`)—, luego `VITE_RN_AVAILABILITY` de un `.env` para
+desarrollo, y si no hay nada, el texto de `site.ts`.
+
+Dos cosas se rompen con facilidad aquí: **`config.js` se carga en `index.html`
+antes del módulo** y sin caché en nginx (si se cachea, la disponibilidad se queda
+congelada), y el script de arranque **escribe con `printf`, no con `echo`**,
+porque el `echo` de ash deshace el escapado de comillas y barras. Para añadir
+otro texto configurable hay que tocar `FROM_ENV` en `runtime.ts` y el script.
 
 ### Pixel art: mapas ASCII, no imágenes ni librerías de iconos
 

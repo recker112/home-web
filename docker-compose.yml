@@ -17,6 +17,12 @@ services:
       dockerfile: Dockerfile.prod
     image: reckernode-web:local
     restart: unless-stopped
+    # Textos que se leen al arrancar el contenedor, no al construir la
+    # imagen: cámbialos en el .env de al lado y basta con reiniciar
+    # (`docker compose up -d`, sin --build). Si se dejan vacíos, la web
+    # usa los textos de src/data/site.ts.
+    environment:
+      RN_AVAILABILITY: ${RN_AVAILABILITY:-}
     ports:
       - "8080:80"
     healthcheck:

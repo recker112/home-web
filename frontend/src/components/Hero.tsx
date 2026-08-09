@@ -10,9 +10,9 @@ const BOOT = [
   '$ ssh recker@reckernode.dev',
   '> handshake ....... OK',
   '$ systemctl status --nodes',
-  '[ OK ] music.reckernode.dev',
-  '[ OK ] ts3.reckernode.dev',
   '[ OK ] reckernode.dev',
+  '[ OK ] ts3.reckernode.dev',
+  '[ OK ] sinusbot.reckernode.dev',
   '$ whoami',
 ]
 

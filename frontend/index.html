@@ -27,6 +27,10 @@
         }
       })();
     </script>
+    <!-- Textos configurables sin recompilar (la disponibilidad del hero).
+         Lo genera el contenedor al arrancar; va antes que la aplicación
+         porque se lee al importar src/data/site.ts. -->
+    <script src="/config.js"></script>
   </head>
   <body>
     <div id="root"></div>
