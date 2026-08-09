@@ -60,7 +60,7 @@ export const services: Service[] = [
     icon: 'bot',
     tagline: 'El bot que pincha música en el TS3',
     description:
-      'SinusBot enganchado a mi servidor de TeamSpeak: entra en el canal y pone la música. Lo manejo desde Telegram con un script propio, sin abrir el panel.',
+      'SinusBot enganchado a mi servidor de TeamSpeak: entra en el canal y pone la música. Comunicación bidireccional entre Ts3 y Telegram.',
     stack: ['SinusBot', 'Telegram Bot API', 'Docker'],
     accent: 'cyan',
   },
@@ -157,7 +157,7 @@ export const projects: Project[] = [
   {
     title: 'SinusBot',
     blurb:
-      'Bot de música para el TeamSpeak, con un script propio de Telegram escribir desde el ts3 hacia telegram de manera bidireccional.',
+      'Bot de música para el TeamSpeak, con un script propio de Telegram escribir entre ts3 y telegram de manera bidireccional.',
     tags: ['SinusBot', 'Telegram', 'Docker'],
     areas: ['DevOps', 'Backend'],
     live: 'https://sinusbot.reckernode.dev',
@@ -216,9 +216,9 @@ export const interests = [
     text: 'De fondo mientras trabajo, y de vez en cuando componiendo. El secuenciador del arcade salió de ahí.',
   },
   {
-    icon: 'bot' as IconName,
-    title: 'Bots y scripts',
-    text: 'Si acabo haciendo algo tres veces, termina siendo un script. Así nació el puente entre el TS3 y Telegram.',
+    icon: 'spark' as IconName,
+    title: 'Claude y agentes',
+    text: 'Uso Claude a diario para lo repetitivo y para explorar ideas rápido. Lo difícil no es pedirlo: es revisar bien lo que vuelve.',
   },
 ]
 
