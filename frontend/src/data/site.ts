@@ -110,8 +110,8 @@ export const skills: Skill[] = [
   { name: 'CSS / Responsive', level: 60, category: 'Frontend' },
 
   { name: 'Git', level: 90, category: 'Extras' },
-  { name: 'Pixel art', level: 20, category: 'Extras' },
-  { name: 'Composición musical', level: 30, category: 'Extras' },
+  { name: 'Pixel art', level: 5, category: 'Extras' },
+  { name: 'Composición musical', level: 20, category: 'Extras' },
 ]
 
 /* ── Proyectos ─────────────────────────────────────────────── */
@@ -136,13 +136,23 @@ export type Project = {
 
 export const projects: Project[] = [
   {
-    title: 'reckernode',
+    title: 'Reckernode',
     blurb:
       'Mi Self-Hosting: un VPS con todos mis servicios en contenedores, proxy inverso con TLS automático y backups programados.',
     tags: ['Docker', 'Nginx', 'Linux'],
     areas: ['DevOps'],
     icon: 'server',
     status: 'live',
+  },
+  {
+    title: 'Gedure',
+    blurb:
+      'App web de gestión educativa enfocado en los grados de primaria y bachillerato. Fue mi primer proyecto en React.',
+    tags: ['React', 'Vite', 'TypeScript'],
+    areas: ['Frontend', 'Backend'],
+    repo: 'https://github.com/recker112/gedure',
+    icon: 'gedure',
+    status: 'wip',
   },
   {
     title: 'SinusBot',
@@ -164,29 +174,51 @@ export const projects: Project[] = [
     status: 'live',
   },
   {
-    title: 'home-web',
+    title: 'Home-web',
     blurb:
       'Este mismo sitio: hub y portfolio en React + Vite, con un arcade jugable dentro.',
     tags: ['React', 'Vite', 'TypeScript'],
     areas: ['Frontend', 'Extras'],
     repo: 'https://github.com/recker112/home-web',
     icon: 'terminal',
-    status: 'wip',
+    status: 'live',
+  },
+  {
+    title: 'Ts3-web',
+    blurb:
+      'Sitio web para el TeamSpeak: muestra usuarios conectados, canales y un formulario de contacto que envía mensajes al TS3.',
+    tags: ['React', 'Vite', 'TypeScript'],
+    areas: ['Frontend', 'Backend', 'Extras'],
+    icon: 'sun',
+    status: 'lab',
   },
 ]
 
 /* ── Intereses (sección "sobre mí") ────────────────────────── */
 
+/* Se apilan en una sola columna al lado de la bio, así que conviene que
+   los textos quepan en dos líneas: con cuatro puntos largos, la columna
+   crece bastante más que la bio de al lado. */
 export const interests = [
   {
-    icon: 'crosshair' as IconName,
-    title: 'Counter-Strike',
-    text: 'Horas de práctica de puntería y utility. Si abres el arcade, verás a qué me refiero.',
+    icon: 'server' as IconName,
+    title: 'Self-hosting',
+    text: 'Levanto un servicio nuevo cada vez que algo me pica la curiosidad. Se aprende más rompiendo cosas propias que leyendo documentación.',
   },
   {
-    icon: 'palette' as IconName,
-    title: 'Pixel art',
-    text: 'Cada icono de esta web está dibujado píxel a píxel. Sin librerías de iconos.',
+    icon: 'code' as IconName,
+    title: 'React',
+    text: 'La parte del desarrollo que más disfruto: montar una interfaz y ver el cambio al instante. Esta web es React de arriba abajo.',
+  },
+  {
+    icon: 'music' as IconName,
+    title: 'Música',
+    text: 'De fondo mientras trabajo, y de vez en cuando componiendo. El secuenciador del arcade salió de ahí.',
+  },
+  {
+    icon: 'bot' as IconName,
+    title: 'Bots y scripts',
+    text: 'Si acabo haciendo algo tres veces, termina siendo un script. Así nació el puente entre el TS3 y Telegram.',
   },
 ]
 
