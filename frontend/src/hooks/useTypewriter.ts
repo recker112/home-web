@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useA11y } from '../state/a11y'
 
 const reduced = () =>
   typeof window !== 'undefined' &&
@@ -11,7 +12,11 @@ const reduced = () =>
 export function useBootLines(lines: string[], speed = 18) {
   const [done, setDone] = useState(0)
   const [chars, setChars] = useState(0)
-  const [instant] = useState(reduced)
+  /* Sin movimiento por preferencia del sistema o por el modo de
+     accesibilidad: el texto aparece entero, no se teclea. */
+  const [still] = useState(reduced)
+  const a11y = useA11y().enabled
+  const instant = still || a11y
 
   useEffect(() => {
     if (instant || done >= lines.length) return
@@ -42,7 +47,9 @@ export function useRotatingText(texts: string[], typeSpeed = 45, hold = 1900) {
   const [index, setIndex] = useState(0)
   const [chars, setChars] = useState(0)
   const [erasing, setErasing] = useState(false)
-  const [instant] = useState(reduced)
+  const [still] = useState(reduced)
+  const a11y = useA11y().enabled
+  const instant = still || a11y
 
   useEffect(() => {
     if (instant || texts.length === 0) return

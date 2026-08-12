@@ -126,6 +126,26 @@
   box-shadow: 0 0 0 var(--shadow);
 }
 
+/* Estado encendido (modo de accesibilidad): el icono solo no basta para
+   saber si está activo. */
+.nav__icon-btn.is-on {
+  color: var(--on-accent);
+  background: var(--gold);
+  border-color: color-mix(in srgb, var(--gold) 60%, #000);
+}
+
+/* Con cuatro botones, la marca y los iconos se pisan en móviles estrechos. */
+@media (max-width: 420px) {
+  .nav__tools {
+    gap: 6px;
+  }
+
+  .nav__icon-btn {
+    width: 34px;
+    height: 34px;
+  }
+}
+
 .nav__burger {
   display: grid;
 }

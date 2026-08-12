@@ -167,8 +167,8 @@ ejecuta antes de compilar.
 
 ### Estado persistido
 
-Claves `rn.*` en `localStorage`: `rn.theme`, `rn.sound`, `rn.aim.best`,
-`rn.canvas`, `rn.track`. `useLocalStorage` no escribe si el valor no cambia
+Claves `rn.*` en `localStorage`: `rn.theme`, `rn.a11y`, `rn.sound`,
+`rn.aim.best`, `rn.canvas`, `rn.track`. `useLocalStorage` no escribe si el valor no cambia
 (pintar arrastrando provocaría una escritura por fotograma).
 
 ### Movimiento y accesibilidad
@@ -176,6 +176,23 @@ Claves `rn.*` en `localStorage`: `rn.theme`, `rn.sound`, `rn.aim.best`,
 `prefers-reduced-motion` se respeta de verdad: el fondo se dibuja quieto, el
 cursor de mira no aparece y los efectos de tecleo se saltan la animación. Al
 añadir animación, compruébalo.
+
+Aparte está el **modo de accesibilidad** para baja visión, que se enciende con
+el botón del ojo de la barra superior. Lo lleva `state/a11y.ts`: un store
+diminuto con `useSyncExternalStore` en vez de un contexto, porque lo consultan
+sitios que no cuelgan de un proveedor común (`useTypewriter` entre ellos).
+Marca `data-a11y='on'` en el `<html>` —lo aplica el script inline de
+`index.html` antes del primer paint, igual que el tema— y `styles/a11y.css`
+cuelga de ahí: fuente de palo en lugar de la pixel, raíz al 140 %, tokens de
+contraste alto y animaciones apagadas. `App.tsx` además no monta `Backdrop` ni
+`Cursor`.
+
+Dos avisos al tocarlo. Los tamaños en `rem` de la web son diminutos (0.4–0.55)
+porque Press Start 2P llena todo el em; con una fuente normal serían 6 px, así
+que `a11y.css` lleva una **lista explícita de clases con un suelo de tamaño**:
+si creas una etiqueta pequeña nueva, añádela ahí. Y las reglas del modo se
+apoyan en la especificidad de `:root[data-a11y='on']`, no en el orden del
+archivo.
 
 ## Scripts propios
 

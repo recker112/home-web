@@ -22,6 +22,12 @@
                 ? 'light'
                 : 'dark';
           document.documentElement.dataset.theme = theme;
+          // El modo de accesibilidad también va antes del paint: si se
+          // aplicara desde React, la página parpadearía con la estética
+          // normal antes de agrandarse.
+          if (localStorage.getItem('rn.a11y') === 'on') {
+            document.documentElement.dataset.a11y = 'on';
+          }
         } catch (e) {
           /* localStorage bloqueado: nos quedamos con el tema oscuro del HTML */
         }

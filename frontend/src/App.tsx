@@ -15,9 +15,11 @@ import { Skills } from './components/Skills'
 import { MusicProvider } from './music/MusicProvider'
 import { AreaProvider } from './state/AreaProvider'
 import { useTheme } from './hooks/useTheme'
+import { useA11y } from './state/a11y'
 
 export default function App() {
   const { theme, toggle } = useTheme()
+  const { enabled: a11y } = useA11y()
 
   return (
     <SoundProvider>
@@ -25,8 +27,11 @@ export default function App() {
           de la sección de música comparten el mismo audio y la canción no
           se corta al pasar de uno a otro. */}
       <MusicProvider>
-        <Backdrop />
-        <Cursor />
+        {/* En modo de accesibilidad el fondo de estrellas y la mira no se
+            montan: estorban a la lectura y gastan CPU en dibujar algo que
+            el CSS oculta igualmente. */}
+        {!a11y && <Backdrop />}
+        {!a11y && <Cursor />}
         <Navbar theme={theme} onToggleTheme={toggle} />
 
         <main>

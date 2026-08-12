@@ -1,0 +1,231 @@
+/* ══════════════════════════════════════════════════════════════
+   MODO DE ACCESIBILIDAD  (data-a11y='on' en <html>)
+
+   Pensado para baja visión: cambia la tipografía pixel por una de
+   palo, agranda el texto, sube el contraste al máximo y apaga todo
+   lo que se mueve. Se activa desde la barra superior y se guarda en
+   `rn.a11y`.
+
+   Se carga después de base.css, pero no depende del orden: cada
+   regla lleva `[data-a11y='on']`, así que gana por especificidad.
+   ══════════════════════════════════════════════════════════════ */
+
+/* ── Tokens: contraste alto ───────────────────────────────────
+   Los grises intermedios (--text-dim, --text-faint) se acercan al
+   color de texto principal: son la primera víctima de una vista
+   cansada. Los acentos se recolocan para pasar de 7:1 sobre el
+   fondo, no solo de 4.5:1. */
+
+:root[data-a11y='on'],
+:root[data-a11y='on'][data-theme='dark'] {
+  --bg: #000000;
+  --bg-grid: #000000;
+  --surface: #0a1020;
+  --surface-2: #16203a;
+  --surface-3: #22304f;
+
+  --border: #8fa8d8;
+  --border-strong: #ffffff;
+  --shadow: #000000;
+
+  --text: #ffffff;
+  --text-dim: #e4ecff;
+  --text-faint: #c6d5f2;
+
+  --blue: #5aa2ff;
+  --blue-bright: #9cc7ff;
+  --blue-deep: #14305e;
+  --cyan: #5ee9f7;
+  --gold: #ffc53d;
+  --green: #5ce892;
+  --red: #ff7b7b;
+  --magenta: #efa8ff;
+
+  --on-accent: #000000;
+  --scan-opacity: 0;
+  --star-alpha: 0;
+}
+
+:root[data-a11y='on'][data-theme='light'] {
+  --bg: #ffffff;
+  --bg-grid: #ffffff;
+  --surface: #ffffff;
+  --surface-2: #eef2fa;
+  --surface-3: #dde5f4;
+
+  --border: #16233d;
+  --border-strong: #000000;
+  --shadow: #4b5b7c;
+
+  --text: #000000;
+  --text-dim: #14203a;
+  --text-faint: #26324c;
+
+  --blue: #0b3ec0;
+  --blue-bright: #072e91;
+  --blue-deep: #041a55;
+  --cyan: #045063;
+  --gold: #6d4000;
+  --green: #08571f;
+  --red: #9b0f0f;
+  --magenta: #6d0f7d;
+
+  --on-accent: #ffffff;
+  --scan-opacity: 0;
+  --star-alpha: 0;
+}
+
+/* ── Tipografía ───────────────────────────────────────────────
+   Fuente del sistema: se lee mejor que la pixel y no descarga nada.
+   Al agrandar la raíz, todos los tamaños en `rem` suben con ella. */
+
+:root[data-a11y='on'] {
+  --font-pixel:
+    system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-body: var(--font-pixel);
+  /* En porcentaje, no en px: quien ya haya agrandado la letra por defecto
+     del navegador la vería encogerse con un valor absoluto. */
+  font-size: 140%;
+}
+
+:root[data-a11y='on'] body {
+  font-size: 1.05rem;
+  line-height: 1.65;
+  /* El pixel art necesita bordes duros; una fuente de palo, no. */
+  -webkit-font-smoothing: antialiased;
+  font-smooth: always;
+}
+
+:root[data-a11y='on'] h1,
+:root[data-a11y='on'] h2,
+:root[data-a11y='on'] h3,
+:root[data-a11y='on'] h4 {
+  letter-spacing: 0;
+  line-height: 1.3;
+}
+
+:root[data-a11y='on'] code {
+  font-family: ui-monospace, 'Courier New', monospace;
+  font-size: 0.95em;
+}
+
+/* Los textos diminutos existen porque Press Start 2P llena todo el em:
+   a 0.42rem sigue leyéndose. Con una fuente de palo serían 6 px, así que
+   aquí hay que ponerles un suelo. La lista es explícita a posta: un
+   `font-size` global rompería las rejillas del arcade. */
+:root[data-a11y='on'] .tag,
+:root[data-a11y='on'] .btn--sm,
+:root[data-a11y='on'] .nav__link,
+:root[data-a11y='on'] .footer__social,
+:root[data-a11y='on'] .areafilter__title,
+:root[data-a11y='on'] .areafilter__btn-label,
+:root[data-a11y='on'] .areafilter__btn-count,
+:root[data-a11y='on'] .about__bio-head,
+:root[data-a11y='on'] .skill__lv,
+:root[data-a11y='on'] .skills__jump,
+:root[data-a11y='on'] .music__num,
+:root[data-a11y='on'] .music__len,
+:root[data-a11y='on'] .egg,
+:root[data-a11y='on'] .player__bar-title,
+:root[data-a11y='on'] .player__bar-count,
+:root[data-a11y='on'] .player__now,
+:root[data-a11y='on'] .player__time,
+:root[data-a11y='on'] .project__status,
+:root[data-a11y='on'] .project__link,
+:root[data-a11y='on'] .project__area,
+:root[data-a11y='on'] .projects__active-label,
+:root[data-a11y='on'] .projects__clear,
+:root[data-a11y='on'] .dock__label,
+:root[data-a11y='on'] .arcade__marquee,
+:root[data-a11y='on'] .arcade__coin,
+:root[data-a11y='on'] .arcade__tab,
+:root[data-a11y='on'] .node__probe,
+:root[data-a11y='on'] .node__bar-id,
+:root[data-a11y='on'] .aim__stat-label,
+:root[data-a11y='on'] .painter__label,
+:root[data-a11y='on'] .painter__tool,
+:root[data-a11y='on'] .seq__field-label,
+:root[data-a11y='on'] .seq__select,
+:root[data-a11y='on'] .seq__length,
+:root[data-a11y='on'] .hero__badge,
+:root[data-a11y='on'] .hero__stat-label,
+:root[data-a11y='on'] .terminal__title,
+:root[data-a11y='on'] .hero__scroll {
+  font-size: 0.8rem;
+}
+
+/* Las etiquetas del piano rollo comparten celda con la rejilla: si crecen
+   como el resto, el cabezal deja de cuadrar con los pasos. */
+:root[data-a11y='on'] .roll__label {
+  font-size: 0.62rem;
+}
+
+:root[data-a11y='on'] .btn {
+  font-size: 0.9rem;
+}
+
+:root[data-a11y='on'] .section-head__idx {
+  font-size: 0.9rem;
+}
+
+/* ── Enlaces y foco ───────────────────────────────────────────
+   Subrayado siempre: distinguir un enlace solo por el color no vale
+   con la vista justa ni con daltonismo. */
+
+:root[data-a11y='on'] a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 2px;
+}
+
+:root[data-a11y='on'] :focus-visible {
+  outline: 5px solid var(--gold);
+  outline-offset: 3px;
+}
+
+/* Bordes más marcados: separan las cajas cuando el contorno se difumina. */
+:root[data-a11y='on'] .panel,
+:root[data-a11y='on'] .btn {
+  border-color: var(--border-strong);
+}
+
+/* ── Botones de la barra: objetivo táctil mayor ───────────────── */
+
+/* Por debajo de 420 px mandan los botones compactos de Navbar.css: cuatro
+   iconos grandes no caben junto a la marca. */
+@media (min-width: 421px) {
+  :root[data-a11y='on'] .nav__icon-btn {
+    width: 46px;
+    height: 46px;
+  }
+}
+
+:root[data-a11y='on'] .nav__icon-btn svg {
+  width: 22px;
+  height: 22px;
+}
+
+/* ── Sin distracciones ────────────────────────────────────────
+   El fondo de estrellas y la mira ni se montan (ver App.tsx); esto
+   cubre lo que es puro CSS. */
+
+:root[data-a11y='on'] .backdrop {
+  display: none;
+}
+
+:root[data-a11y='on'] {
+  scroll-behavior: auto;
+}
+
+:root[data-a11y='on'] *,
+:root[data-a11y='on'] *::before,
+:root[data-a11y='on'] *::after {
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.001ms !important;
+}
+
+:root[data-a11y='on'] .reveal {
+  opacity: 1;
+  transform: none;
+}

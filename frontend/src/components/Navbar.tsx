@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { navItems, profile } from '../data/site'
 import { useScrollSpy } from '../hooks/useScrollSpy'
 import { useSound } from '../audio/context'
+import { useA11y } from '../state/a11y'
 import type { Theme } from '../hooks/useTheme'
 import { PixelIcon } from './PixelIcon'
 import './Navbar.css'
@@ -17,6 +18,7 @@ export function Navbar({ theme, onToggleTheme }: Props) {
   const [open, setOpen] = useState(false)
   const active = useScrollSpy(IDS)
   const sound = useSound()
+  const a11y = useA11y()
 
   /* El menú desplegable no debe sobrevivir a un cambio a escritorio. */
   useEffect(() => {
@@ -86,6 +88,30 @@ export function Navbar({ theme, onToggleTheme }: Props) {
               name={sound.enabled ? 'volume' : 'mute'}
               size={16}
               title={sound.enabled ? 'Silenciar efectos' : 'Activar efectos de sonido'}
+            />
+          </button>
+
+          <button
+            className={`nav__icon-btn${a11y.enabled ? ' is-on' : ''}`}
+            onClick={() => {
+              sound.play('toggle')
+              a11y.toggle()
+            }}
+            aria-pressed={a11y.enabled}
+            title={
+              a11y.enabled
+                ? 'Salir del modo de accesibilidad'
+                : 'Modo de accesibilidad: texto grande y alto contraste'
+            }
+          >
+            <PixelIcon
+              name="eye"
+              size={16}
+              title={
+                a11y.enabled
+                  ? 'Salir del modo de accesibilidad'
+                  : 'Modo de accesibilidad: texto grande y alto contraste'
+              }
             />
           </button>
 
